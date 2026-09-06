@@ -1,10 +1,16 @@
 /**
- * Invitación digital + RSVP para Google Apps Script / Google Sheets.
- * Proyecto pensado para un script vinculado a una hoja de cálculo.
+ * Backend RSVP — Lizbeth & Salvador
+ * Google Apps Script vinculado a un Google Sheet.
+ *
+ * Flujo:
+ *  - GitHub Pages carga la invitación por ID usando JSONP (evita CORS).
+ *  - El formulario RSVP se envía a un iframe oculto mediante POST normal.
+ *  - Apps Script actualiza la fila correspondiente y responde con postMessage.
  */
 
 const SHEET_INVITADOS = 'Invitados';
 const SHEET_RESUMEN = 'Resumen';
+const DEFAULT_PUBLIC_SITE_URL = 'https://solopezz.github.io/Lizbeth-Salvador/';
 
 const COL = {
   ID: 1,
@@ -23,68 +29,143 @@ function onOpen() {
     .createMenu('💍 Boda RSVP')
     .addItem('1. Preparar hojas', 'setupProject')
     .addItem('2. Generar IDs faltantes', 'generateInviteIds')
-    .addItem('3. Guardar URL del Web App', 'setWebAppUrl')
+    .addItem('3. Guardar URL del sitio', 'setPublicSiteUrl')
     .addItem('4. Generar enlaces', 'generateInviteLinks')
     .addToUi();
 }
 
+/**
+ * GET público.
+ * ?action=invite&id=ABC&callback=miFuncion devuelve JSONP.
+ */
 function doGet(e) {
-  const template = HtmlService.createTemplateFromFile('Index');
-  template.inviteId = (e && e.parameter && e.parameter.id) ? e.parameter.id : 'DEMO';
+  try {
+    const p = (e && e.parameter) || {};
 
-  return template.evaluate()
-    .setTitle('Nuestra boda')
-    .addMetaTag('viewport', 'width=device-width, initial-scale=1, viewport-fit=cover')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+    if (p.action === 'invite') {
+      const callback = validateCallback_(p.callback || 'weddingRsvpCallback');
+      const result = loadInvitation_(p.id || '');
+      return jsonp_(callback, result);
+    }
+
+    return ContentService
+      .createTextOutput('RSVP Lizbeth & Salvador: API activa')
+      .setMimeType(ContentService.MimeType.TEXT);
+  } catch (err) {
+    const callback = validateCallback_((e && e.parameter && e.parameter.callback) || 'weddingRsvpCallback');
+    return jsonp_(callback, { ok: false, message: 'No se pudo cargar la invitación.' });
+  }
 }
 
 /**
- * Ejecuta esta función una vez desde el editor vinculado al Google Sheet.
- * Crea las hojas, encabezados, ejemplo y guarda el Spreadsheet ID.
+ * POST desde el formulario del sitio.
+ * Recibe application/x-www-form-urlencoded para evitar problemas CORS.
+ */
+function doPost(e) {
+  let result;
+
+  try {
+    const p = (e && e.parameter) || {};
+    result = saveRsvp_({
+      id: p.id,
+      status: p.status,
+      attendees: p.attendees,
+      message: p.message,
+    });
+  } catch (err) {
+    result = { ok: false, message: err && err.message ? err.message : 'No se pudo guardar la respuesta.' };
+  }
+
+  // La respuesta se carga en un iframe oculto del sitio y avisa a la página padre.
+  const payload = JSON.stringify({
+    source: 'wedding-rsvp',
+    ok: !!result.ok,
+    message: result.message || (result.ok ? 'Respuesta guardada.' : 'No se pudo guardar la respuesta.'),
+    status: result.status || '',
+    attendees: Number(result.attendees || 0),
+  }).replace(/</g, '\\u003c');
+
+  return HtmlService.createHtmlOutput(
+    '<!doctype html><html><body><script>' +
+    'window.parent.postMessage(' + payload + ', "*");' +
+    '</script></body></html>'
+  );
+}
+
+/**
+ * Ejecutar UNA VEZ desde Apps Script vinculado al Google Sheet.
+ * Es seguro volver a ejecutarlo: no borra la lista existente.
  */
 function setupProject() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  if (!ss) throw new Error('Abre este script desde Extensiones → Apps Script dentro de tu Google Sheet.');
+  if (!ss) throw new Error('Abre Apps Script desde Extensiones → Apps Script dentro del Google Sheet.');
 
   PropertiesService.getScriptProperties().setProperty('SPREADSHEET_ID', ss.getId());
 
-  let invitados = ss.getSheetByName(SHEET_INVITADOS);
-  if (!invitados) invitados = ss.insertSheet(SHEET_INVITADOS);
-  invitados.clear();
+  let sheet = ss.getSheetByName(SHEET_INVITADOS);
+  if (!sheet) sheet = ss.insertSheet(SHEET_INVITADOS);
 
-  const headers = [[
+  const headers = [
     'ID', 'INVITACIÓN / FAMILIA', 'LUGARES', 'ESTADO', 'ASISTENTES',
     'FECHA CONFIRMACIÓN', 'TELÉFONO', 'MENSAJE', 'ENLACE'
-  ]];
-  invitados.getRange(1, 1, 1, headers[0].length).setValues(headers);
-  invitados.setFrozenRows(1);
+  ];
 
-  invitados.getRange(2, 1, 4, 9).setValues([
-    ['', 'Carlos & Fernanda', 2, 'PENDIENTE', '', '', '', '', ''],
-    ['', 'Familia Hernández', 4, 'PENDIENTE', '', '', '', '', '', ''],
-    ['', 'Daniel', 1, 'PENDIENTE', '', '', '', '', '', ''],
-    ['', 'Mariana & Luis', 2, 'PENDIENTE', '', '', '', '', '', ''],
-  ]);
+  if (sheet.getLastRow() === 0) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.getRange(2, 1, 1, headers.length).setValues([
+      ['', 'Invitado de prueba', 2, 'PENDIENTE', '', '', '', '', '']
+    ]);
+  } else {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  }
 
-  invitados.getRange('C2:C').setNumberFormat('0');
-  invitados.getRange('E2:E').setNumberFormat('0');
-  invitados.getRange('F2:F').setNumberFormat('dd/MM/yyyy HH:mm');
-  invitados.autoResizeColumns(1, 9);
-  invitados.setColumnWidth(2, 220);
-  invitados.setColumnWidth(8, 260);
-  invitados.setColumnWidth(9, 360);
+  sheet.setFrozenRows(1);
+  sheet.getRange('C2:C').setNumberFormat('0');
+  sheet.getRange('E2:E').setNumberFormat('0');
+  sheet.getRange('F2:F').setNumberFormat('dd/MM/yyyy HH:mm');
+  sheet.setColumnWidth(1, 150);
+  sheet.setColumnWidth(2, 240);
+  sheet.setColumnWidth(3, 90);
+  sheet.setColumnWidth(4, 120);
+  sheet.setColumnWidth(5, 100);
+  sheet.setColumnWidth(6, 170);
+  sheet.setColumnWidth(7, 140);
+  sheet.setColumnWidth(8, 280);
+  sheet.setColumnWidth(9, 430);
+
+  sheet.getRange(1, 1, 1, headers.length)
+    .setFontWeight('bold')
+    .setBackground('#6E5D4B')
+    .setFontColor('#FFFFFF');
 
   const statusRule = SpreadsheetApp.newDataValidation()
     .requireValueInList(['PENDIENTE', 'CONFIRMADO', 'NO_ASISTE'], true)
     .setAllowInvalid(false)
     .build();
-  invitados.getRange('D2:D').setDataValidation(statusRule);
+  sheet.getRange('D2:D').setDataValidation(statusRule);
 
-  let resumen = ss.getSheetByName(SHEET_RESUMEN);
-  if (!resumen) resumen = ss.insertSheet(SHEET_RESUMEN);
-  resumen.clear();
-  resumen.getRange('A1:B1').setValues([['RESUMEN RSVP', 'TOTAL']]);
-  resumen.getRange('A2:A7').setValues([
+  setupSummary_(ss);
+
+  const props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('PUBLIC_SITE_URL')) {
+    props.setProperty('PUBLIC_SITE_URL', DEFAULT_PUBLIC_SITE_URL);
+  }
+
+  generateInviteIds();
+  generateInviteLinks();
+
+  SpreadsheetApp.getUi().alert(
+    'Listo. Se prepararon Invitados y Resumen. Puedes reemplazar la fila de prueba por tus invitados.'
+  );
+}
+
+function setupSummary_(ss) {
+  let sheet = ss.getSheetByName(SHEET_RESUMEN);
+  if (!sheet) sheet = ss.insertSheet(SHEET_RESUMEN);
+  sheet.clear();
+
+  sheet.getRange('A1:B1').setValues([['RESUMEN RSVP', 'TOTAL']]);
+  sheet.getRange('A2:A7').setValues([
     ['Invitaciones'],
     ['Personas invitadas'],
     ['Personas confirmadas'],
@@ -92,85 +173,51 @@ function setupProject() {
     ['Invitaciones que no asistirán'],
     ['Lugares pendientes de respuesta'],
   ]);
-  resumen.getRange('B2').setFormula('=COUNTA(Invitados!B2:B)');
-  resumen.getRange('B3').setFormula('=SUM(Invitados!C2:C)');
-  resumen.getRange('B4').setFormula('=SUMIF(Invitados!D2:D,"CONFIRMADO",Invitados!E2:E)');
-  resumen.getRange('B5').setFormula('=COUNTIF(Invitados!D2:D,"PENDIENTE")');
-  resumen.getRange('B6').setFormula('=COUNTIF(Invitados!D2:D,"NO_ASISTE")');
-  resumen.getRange('B7').setFormula('=SUMIF(Invitados!D2:D,"PENDIENTE",Invitados!C2:C)');
-  resumen.getRange('A1:B1').setFontWeight('bold');
-  resumen.getRange('A1:B7').setBorder(true, true, true, true, true, true);
-  resumen.setColumnWidth(1, 280);
-  resumen.setColumnWidth(2, 120);
 
-  // Configuración pública inicial. Edita estos valores cuando quieras.
-  const props = PropertiesService.getScriptProperties();
-  const defaults = {
-    COUPLE_MONOGRAM: 'L · S',
-    COUPLE_NAMES: 'L & S',
-    WEDDING_MONTH: 'ABRIL 2027',
-    WEDDING_DATE_ISO: '',
-    CEREMONY_TIME: '17:00',
-    CITY: 'Zacatecas, Zacatecas',
-    VENUE: 'Lugar por definir',
-    MAPS_URL: '',
-    DRESS_CODE: 'Formal',
-  };
-  Object.keys(defaults).forEach(k => {
-    if (props.getProperty(k) === null) props.setProperty(k, defaults[k]);
-  });
+  sheet.getRange('B2').setFormula('=COUNTA(Invitados!B2:B)');
+  sheet.getRange('B3').setFormula('=SUM(Invitados!C2:C)');
+  sheet.getRange('B4').setFormula('=SUMIF(Invitados!D2:D,"CONFIRMADO",Invitados!E2:E)');
+  sheet.getRange('B5').setFormula('=COUNTIF(Invitados!D2:D,"PENDIENTE")');
+  sheet.getRange('B6').setFormula('=COUNTIF(Invitados!D2:D,"NO_ASISTE")');
+  sheet.getRange('B7').setFormula('=SUMIF(Invitados!D2:D,"PENDIENTE",Invitados!C2:C)');
 
-  generateInviteIds();
-  SpreadsheetApp.getUi().alert('Listo. Se crearon las hojas Invitados y Resumen, y se generaron IDs de ejemplo.');
+  sheet.getRange('A1:B1')
+    .setFontWeight('bold')
+    .setBackground('#6E5D4B')
+    .setFontColor('#FFFFFF');
+  sheet.getRange('A1:B7').setBorder(true, true, true, true, true, true);
+  sheet.setColumnWidth(1, 280);
+  sheet.setColumnWidth(2, 120);
 }
 
-/** Devuelve datos públicos de una invitación. */
-function loadInvitation(inviteId) {
+function loadInvitation_(inviteId) {
   const id = normalizeInviteId_(inviteId);
-  const config = getPublicConfig_();
-
-  if (id === 'DEMO') {
-    return {
-      ok: true,
-      demo: true,
-      guest: {
-        id: 'DEMO',
-        name: 'Carlos & Fernanda',
-        reservedSeats: 2,
-        status: 'PENDIENTE',
-        attendees: 0,
-      },
-      config: {
-        ...config,
-        weddingMonth: config.weddingMonth || 'ABRIL 2027',
-        weddingDateISO: config.weddingDateISO || '2027-04-17T17:00:00-06:00',
-        venue: config.venue === 'Lugar por definir' ? 'Terraza de ejemplo' : config.venue,
-      },
-    };
-  }
+  if (!id) return { ok: false, message: 'La invitación no contiene un ID válido.' };
 
   const found = findInviteRow_(id);
-  if (!found) return { ok: false, message: 'No encontramos esta invitación. Revisa que el enlace esté completo.' };
+  if (!found) return { ok: false, message: 'No encontramos esta invitación.' };
 
+  const v = found.values;
   return {
     ok: true,
-    demo: false,
-    guest: rowToGuest_(found.values),
-    config,
+    guest: {
+      id: String(v[COL.ID - 1]),
+      name: String(v[COL.NOMBRE - 1] || 'Invitado'),
+      reservedSeats: Math.max(1, Number(v[COL.LUGARES - 1]) || 1),
+      status: String(v[COL.ESTADO - 1] || 'PENDIENTE'),
+      attendees: Number(v[COL.ASISTENTES - 1] || 0),
+    },
   };
 }
 
-/** Guarda o modifica la confirmación. */
-function saveRsvp(payload) {
-  if (!payload || typeof payload !== 'object') throw new Error('Solicitud inválida.');
-
+function saveRsvp_(payload) {
   const id = normalizeInviteId_(payload.id);
-  if (id === 'DEMO') {
-    return { ok: true, demo: true, message: 'Modo demo: la confirmación se simuló correctamente.' };
-  }
+  if (!id) throw new Error('ID de invitación inválido.');
 
   const status = String(payload.status || '').toUpperCase();
-  if (!['CONFIRMADO', 'NO_ASISTE'].includes(status)) throw new Error('Estado inválido.');
+  if (!['CONFIRMADO', 'NO_ASISTE'].includes(status)) {
+    throw new Error('Selecciona si podrás asistir.');
+  }
 
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
@@ -179,33 +226,32 @@ function saveRsvp(payload) {
     const found = findInviteRow_(id);
     if (!found) throw new Error('Invitación no encontrada.');
 
-    const reservedSeats = Number(found.values[COL.LUGARES - 1]) || 0;
+    const reservedSeats = Math.max(1, Number(found.values[COL.LUGARES - 1]) || 1);
     let attendees = Number(payload.attendees || 0);
 
-    if (status === 'NO_ASISTE') attendees = 0;
-    if (status === 'CONFIRMADO') {
-      if (!Number.isInteger(attendees) || attendees < 1 || attendees > reservedSeats) {
-        throw new Error(`El número de asistentes debe estar entre 1 y ${reservedSeats}.`);
-      }
+    if (status === 'NO_ASISTE') {
+      attendees = 0;
+    } else if (!Number.isInteger(attendees) || attendees < 1 || attendees > reservedSeats) {
+      throw new Error('El número de asistentes no coincide con los lugares reservados.');
     }
 
     const message = String(payload.message || '').trim().slice(0, 500);
-    const sheet = found.sheet;
     const row = found.row;
+    const sheet = found.sheet;
 
     sheet.getRange(row, COL.ESTADO).setValue(status);
     sheet.getRange(row, COL.ASISTENTES).setValue(attendees);
     sheet.getRange(row, COL.FECHA).setValue(new Date());
     sheet.getRange(row, COL.MENSAJE).setValue(message);
-
     SpreadsheetApp.flush();
 
     return {
       ok: true,
-      guest: rowToGuest_(sheet.getRange(row, 1, 1, 9).getValues()[0]),
+      status,
+      attendees,
       message: status === 'CONFIRMADO'
-        ? '¡Gracias por confirmar! Nos emociona compartir este día con ustedes.'
-        : 'Gracias por avisarnos. Los tendremos presentes en este día especial.',
+        ? '¡Gracias por confirmar! Nos emociona compartir este día contigo.'
+        : 'Gracias por avisarnos. Te tendremos presente en este día especial.',
     };
   } finally {
     lock.releaseLock();
@@ -215,113 +261,128 @@ function saveRsvp(payload) {
 function generateInviteIds() {
   const sheet = getSpreadsheet_().getSheetByName(SHEET_INVITADOS);
   if (!sheet) throw new Error('Primero ejecuta setupProject().');
+
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return;
 
-  const ids = new Set(
-    sheet.getRange(2, COL.ID, lastRow - 1, 1).getValues().flat().filter(Boolean).map(v => String(v).toUpperCase())
-  );
+  const rows = sheet.getRange(2, 1, lastRow - 1, 3).getValues();
+  const existing = new Set(rows.map(r => String(r[0] || '').toUpperCase()).filter(Boolean));
+  const out = [];
 
-  for (let row = 2; row <= lastRow; row++) {
-    const name = sheet.getRange(row, COL.NOMBRE).getValue();
-    const existing = sheet.getRange(row, COL.ID).getValue();
-    if (!name || existing) continue;
+  rows.forEach(r => {
+    const currentId = String(r[0] || '').trim().toUpperCase();
+    const name = String(r[1] || '').trim();
+
+    if (!name) {
+      out.push([currentId]);
+      return;
+    }
+
+    if (currentId) {
+      out.push([currentId]);
+      return;
+    }
 
     let id;
     do {
       id = Utilities.getUuid().replace(/-/g, '').slice(0, 14).toUpperCase();
-    } while (ids.has(id));
+    } while (existing.has(id));
 
-    ids.add(id);
-    sheet.getRange(row, COL.ID).setValue(id);
-    if (!sheet.getRange(row, COL.ESTADO).getValue()) sheet.getRange(row, COL.ESTADO).setValue('PENDIENTE');
+    existing.add(id);
+    out.push([id]);
+  });
+
+  sheet.getRange(2, COL.ID, out.length, 1).setValues(out);
+
+  for (let row = 2; row <= lastRow; row++) {
+    const name = sheet.getRange(row, COL.NOMBRE).getValue();
+    if (name && !sheet.getRange(row, COL.ESTADO).getValue()) {
+      sheet.getRange(row, COL.ESTADO).setValue('PENDIENTE');
+    }
   }
 }
 
-function setWebAppUrl() {
+function setPublicSiteUrl() {
   const ui = SpreadsheetApp.getUi();
-  const current = PropertiesService.getScriptProperties().getProperty('WEB_APP_URL') || '';
+  const props = PropertiesService.getScriptProperties();
+  const current = props.getProperty('PUBLIC_SITE_URL') || DEFAULT_PUBLIC_SITE_URL;
+
   const response = ui.prompt(
-    'URL del Web App',
-    'Pega la URL que termina en /exec después de desplegar el proyecto.' + (current ? `\nActual: ${current}` : ''),
+    'URL pública de la invitación',
+    'Usaremos esta URL para generar los enlaces individuales.\nActual: ' + current,
     ui.ButtonSet.OK_CANCEL
   );
 
   if (response.getSelectedButton() !== ui.Button.OK) return;
-  const url = response.getResponseText().trim();
-  if (!/^https:\/\/script\.google\.com\//i.test(url)) {
-    ui.alert('La URL no parece ser un Web App de Apps Script. Debe comenzar con https://script.google.com/');
+  let url = response.getResponseText().trim();
+  if (!/^https:\/\//i.test(url)) {
+    ui.alert('La URL debe comenzar con https://');
     return;
   }
+  if (!url.endsWith('/')) url += '/';
 
-  PropertiesService.getScriptProperties().setProperty('WEB_APP_URL', url.replace(/\/$/, ''));
+  props.setProperty('PUBLIC_SITE_URL', url);
   generateInviteLinks();
 }
 
 function generateInviteLinks() {
-  const props = PropertiesService.getScriptProperties();
-  const baseUrl = props.getProperty('WEB_APP_URL');
-  if (!baseUrl) throw new Error('Primero usa “Guardar URL del Web App” y pega la URL /exec.');
-
   const sheet = getSpreadsheet_().getSheetByName(SHEET_INVITADOS);
+  if (!sheet) throw new Error('Primero ejecuta setupProject().');
+
+  generateInviteIds();
+
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return;
 
-  generateInviteIds();
-  const ids = sheet.getRange(2, COL.ID, lastRow - 1, 1).getValues();
-  const links = ids.map(([id]) => [id ? `${baseUrl}?id=${encodeURIComponent(id)}` : '']);
+  let baseUrl = PropertiesService.getScriptProperties().getProperty('PUBLIC_SITE_URL') || DEFAULT_PUBLIC_SITE_URL;
+  if (!baseUrl.endsWith('/')) baseUrl += '/';
+
+  const rows = sheet.getRange(2, 1, lastRow - 1, 2).getValues();
+  const links = rows.map(r => {
+    const id = String(r[0] || '').trim();
+    const name = String(r[1] || '').trim();
+    return [id && name ? baseUrl + '?id=' + encodeURIComponent(id) : ''];
+  });
+
   sheet.getRange(2, COL.ENLACE, links.length, 1).setValues(links);
 }
 
-function getPublicConfig_() {
-  const p = PropertiesService.getScriptProperties();
-  return {
-    monogram: p.getProperty('COUPLE_MONOGRAM') || 'L · S',
-    coupleNames: p.getProperty('COUPLE_NAMES') || 'L & S',
-    weddingMonth: p.getProperty('WEDDING_MONTH') || 'ABRIL 2027',
-    weddingDateISO: p.getProperty('WEDDING_DATE_ISO') || '',
-    ceremonyTime: p.getProperty('CEREMONY_TIME') || '17:00',
-    city: p.getProperty('CITY') || 'Zacatecas, Zacatecas',
-    venue: p.getProperty('VENUE') || 'Lugar por definir',
-    mapsUrl: p.getProperty('MAPS_URL') || '',
-    dressCode: p.getProperty('DRESS_CODE') || 'Formal',
-  };
-}
-
-function getSpreadsheet_() {
-  const id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
-  if (!id) throw new Error('Falta configurar SPREADSHEET_ID. Ejecuta setupProject() desde el Google Sheet.');
-  return SpreadsheetApp.openById(id);
-}
-
-function findInviteRow_(inviteId) {
+function findInviteRow_(id) {
   const sheet = getSpreadsheet_().getSheetByName(SHEET_INVITADOS);
-  if (!sheet) return null;
-  const lastRow = sheet.getLastRow();
-  if (lastRow < 2) return null;
+  if (!sheet || sheet.getLastRow() < 2) return null;
 
-  const range = sheet.getRange(2, 1, lastRow - 1, 9);
-  const values = range.getValues();
-
+  const values = sheet.getRange(2, 1, sheet.getLastRow() - 1, 9).getValues();
   for (let i = 0; i < values.length; i++) {
-    const rowId = String(values[i][COL.ID - 1] || '').trim().toUpperCase();
-    if (rowId === inviteId) {
+    if (String(values[i][COL.ID - 1] || '').trim().toUpperCase() === id) {
       return { sheet, row: i + 2, values: values[i] };
     }
   }
   return null;
 }
 
-function rowToGuest_(row) {
-  return {
-    id: String(row[COL.ID - 1] || ''),
-    name: String(row[COL.NOMBRE - 1] || ''),
-    reservedSeats: Number(row[COL.LUGARES - 1]) || 0,
-    status: String(row[COL.ESTADO - 1] || 'PENDIENTE'),
-    attendees: Number(row[COL.ASISTENTES - 1]) || 0,
-  };
+function getSpreadsheet_() {
+  const id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+
+  const active = SpreadsheetApp.getActiveSpreadsheet();
+  if (active) return active;
+
+  throw new Error('No se encontró el Google Sheet. Ejecuta setupProject() desde una hoja vinculada.');
 }
 
 function normalizeInviteId_(value) {
-  return String(value || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '').slice(0, 64);
+  const id = String(value || '').trim().toUpperCase();
+  return /^[A-Z0-9]{8,40}$/.test(id) ? id : '';
+}
+
+function validateCallback_(value) {
+  const cb = String(value || '').trim();
+  return /^[A-Za-z_$][0-9A-Za-z_$\.]{0,100}$/.test(cb) ? cb : 'weddingRsvpCallback';
+}
+
+function jsonp_(callback, data) {
+  const body = callback + '(' + JSON.stringify(data).replace(/</g, '\\u003c') + ');';
+  return ContentService
+    .createTextOutput(body)
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
