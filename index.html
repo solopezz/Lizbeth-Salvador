@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6f1e8" />
+  <meta name="description" content="Invitación de boda de Lizbeth y Salvador" />
+  <title>Lizbeth & Salvador | Nuestra boda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content reveal">
+      <div class="monogram" aria-label="Monograma Lizbeth y Salvador">L <span>·</span> S</div>
+      <p class="eyebrow">NOS CASAMOS</p>
+      <h1>Lizbeth <span>&</span> Salvador</h1>
+      <p class="hero__date" id="heroDate">Abril 2027 · Zacatecas</p>
+      <a class="button button--light" href="#rsvp">Confirmar asistencia</a>
+    </div>
+    <a class="scroll-cue" href="#bienvenida" aria-label="Continuar">⌄</a>
+  </header>
+
+  <main>
+    <section id="bienvenida" class="section intro reveal">
+      <p class="eyebrow">CON MUCHA ILUSIÓN</p>
+      <h2>Queremos compartir este día contigo</h2>
+      <p class="lead">Hay momentos que se vuelven inolvidables cuando se comparten con las personas que queremos. Nos encantará celebrar nuestro matrimonio contigo.</p>
+      <div class="ornament">❦</div>
+    </section>
+
+    <section class="section section--soft countdown-section reveal">
+      <p class="eyebrow">FALTA POCO</p>
+      <h2>Cuenta regresiva</h2>
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div><strong id="days">--</strong><span>Días</span></div>
+        <div><strong id="hours">--</strong><span>Horas</span></div>
+        <div><strong id="minutes">--</strong><span>Minutos</span></div>
+        <div><strong id="seconds">--</strong><span>Segundos</span></div>
+      </div>
+    </section>
+
+    <section class="section details reveal">
+      <p class="eyebrow">EL GRAN DÍA</p>
+      <h2>Celebración</h2>
+      <div class="details-grid">
+        <article class="detail-card">
+          <div class="detail-card__icon">♡</div>
+          <h3>Ceremonia</h3>
+          <p id="ceremonyTime">Hora por confirmar</p>
+          <p id="ceremonyPlace">Lugar por confirmar</p>
+        </article>
+        <article class="detail-card">
+          <div class="detail-card__icon">✦</div>
+          <h3>Recepción</h3>
+          <p id="receptionTime">Hora por confirmar</p>
+          <p id="receptionPlace">Zacatecas, Zac.</p>
+        </article>
+      </div>
+      <a id="mapsButton" class="button" href="#" target="_blank" rel="noopener">Ver ubicación</a>
+    </section>
+
+    <section class="section section--dark reveal">
+      <p class="eyebrow eyebrow--light">CÓDIGO DE VESTIMENTA</p>
+      <h2>Formal</h2>
+      <p class="lead lead--light">Queremos verte increíble. Más adelante agregaremos aquí los detalles del código de vestimenta y cualquier recomendación especial.</p>
+    </section>
+
+    <section id="rsvp" class="section rsvp reveal">
+      <p class="eyebrow">RSVP</p>
+      <h2>Confirma tu asistencia</h2>
+      <p class="lead" id="guestGreeting">Será un gusto celebrar contigo.</p>
+
+      <form id="rsvpForm" class="rsvp-form">
+        <div class="field">
+          <label>¿Podrás acompañarnos?</label>
+          <div class="choice-grid">
+            <label class="choice"><input type="radio" name="status" value="Confirmado" required><span>Sí, asistiré</span></label>
+            <label class="choice"><input type="radio" name="status" value="No asistirá" required><span>No podré asistir</span></label>
+          </div>
+        </div>
+
+        <div class="field" id="attendanceField">
+          <label for="attendees">Número de asistentes</label>
+          <select id="attendees" name="attendees"></select>
+          <small id="spotsHelp"></small>
+        </div>
+
+        <div class="field">
+          <label for="message">Mensaje para los novios <span>(opcional)</span></label>
+          <textarea id="message" name="message" rows="4" maxlength="300" placeholder="Escribe algo bonito..."></textarea>
+        </div>
+
+        <button class="button button--full" type="submit" id="submitButton">Guardar respuesta</button>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="monogram monogram--small">L <span>·</span> S</div>
+    <p>Con amor, Lizbeth & Salvador</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
