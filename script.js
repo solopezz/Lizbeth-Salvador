@@ -1,9 +1,7 @@
 const CONFIG = {
   weddingDate: '2027-04-17T17:00:00-06:00',
   mapsUrl: 'https://maps.google.com',
-
-  // Pega aquí la URL /exec de Google Apps Script cuando la tengamos.
-  apiUrl: '',
+  apiUrl: 'https://script.google.com/macros/s/AKfycbw0pGZaY0tQTW7lIv2pjQlY-M-PdEows91eaB_M44LQkRqEYxpmiL_Ur-3eAklfayY/exec',
 };
 
 const params = new URLSearchParams(window.location.search);
