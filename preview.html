@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#f4f0e8">
+  <style>
+    :root {
+      --paper: #f4f0e8;
+      --paper-2: #ebe4d8;
+      --ink: #2b2c28;
+      --muted: #716f67;
+      --line: rgba(43,44,40,.18);
+      --accent: #58624b;
+      --accent-soft: #dfe3d6;
+      --white: #fffdf9;
+      --shadow: 0 18px 60px rgba(40, 36, 30, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(255,255,255,.9), transparent 35%),
+        linear-gradient(180deg, var(--paper) 0%, #f8f5ef 45%, var(--paper-2) 100%);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+    }
+    button, input, select, textarea { font: inherit; }
+    .shell { width: min(100%, 760px); margin: 0 auto; overflow: hidden; }
+    .hero {
+      min-height: 92svh;
+      padding: 30px 24px 48px;
+      display: grid;
+      align-content: space-between;
+      text-align: center;
+      position: relative;
+      isolation: isolate;
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      width: 210px; height: 210px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      z-index: -1;
+    }
+    .hero::before { top: 70px; left: -125px; }
+    .hero::after { right: -130px; bottom: 55px; }
+    .monogram {
+      margin: 8px auto 0;
+      width: 82px; height: 82px;
+      display: grid; place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font: 500 17px/1 Georgia, serif;
+      letter-spacing: .16em;
+    }
+    .eyebrow { margin-top: 68px; font-size: 11px; letter-spacing: .3em; color: var(--muted); }
+    h1 {
+      margin: 18px 0 8px;
+      font: 400 clamp(54px, 16vw, 92px)/.92 Georgia, "Times New Roman", serif;
+      letter-spacing: -.045em;
+    }
+    .hero-date { margin-top: 22px; font-size: 12px; letter-spacing: .24em; }
+    .hero-city { margin-top: 9px; color: var(--muted); font-size: 14px; }
+    .scroll-hint { margin-top: 50px; font-size: 11px; letter-spacing: .18em; color: var(--muted); }
+    .scroll-line { width: 1px; height: 48px; background: var(--line); margin: 16px auto 0; }
+
+    section { padding: 72px 24px; }
+    .intro { text-align: center; }
+    .kicker { font-size: 10px; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; }
+    .guest-name {
+      margin: 18px auto 10px;
+      font: 400 clamp(34px, 10vw, 54px)/1.06 Georgia, serif;
+    }
+    .lead { margin: 18px auto 0; max-width: 540px; color: var(--muted); line-height: 1.8; font-size: 15px; }
+    .seats-pill {
+      display: inline-flex; gap: 8px; align-items: center;
+      padding: 11px 16px; margin-top: 24px;
+      border: 1px solid var(--line); border-radius: 999px;
+      background: rgba(255,255,255,.35);
+      font-size: 13px;
+    }
+
+    .countdown-wrap { padding-top: 0; }
+    .countdown-card {
+      background: var(--ink); color: var(--white); border-radius: 2px;
+      padding: 34px 22px; box-shadow: var(--shadow);
+    }
+    .countdown-title { text-align: center; font: 400 27px/1.2 Georgia, serif; }
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 28px; }
+    .time { text-align: center; }
+    .time strong { display: block; font: 400 clamp(24px, 8vw, 36px)/1 Georgia, serif; }
+    .time span { display: block; margin-top: 8px; font-size: 9px; letter-spacing: .16em; color: rgba(255,255,255,.6); }
+
+    .details { display: grid; gap: 18px; }
+    .detail-card { border-top: 1px solid var(--line); padding: 28px 0 8px; }
+    .detail-card h3 { margin: 8px 0 8px; font: 400 30px/1.15 Georgia, serif; }
+    .detail-card p { margin: 6px 0; color: var(--muted); line-height: 1.7; }
+    .link-btn {
+      display: inline-flex; margin-top: 18px; padding: 12px 16px;
+      text-decoration: none; color: var(--ink); border: 1px solid var(--ink);
+      border-radius: 999px; font-size: 12px; letter-spacing: .08em;
+    }
+
+    .rsvp-section { padding-top: 34px; padding-bottom: 100px; }
+    .rsvp-card {
+      background: var(--white); box-shadow: var(--shadow);
+      border: 1px solid rgba(43,44,40,.08); padding: 34px 22px;
+    }
+    .rsvp-card h2 { margin: 12px 0 8px; font: 400 42px/1 Georgia, serif; }
+    .rsvp-card .sub { color: var(--muted); line-height: 1.6; }
+    .choice-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 26px; }
+    .choice {
+      width: 100%; padding: 15px 16px; cursor: pointer;
+      border: 1px solid var(--line); background: transparent; color: var(--ink);
+      text-align: left; transition: .2s ease;
+    }
+    .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
+    .form-row { margin-top: 20px; }
+    label { display: block; margin-bottom: 8px; font-size: 12px; letter-spacing: .08em; }
+    select, textarea {
+      width: 100%; border: 1px solid var(--line); background: #fff; color: var(--ink);
+      padding: 14px 12px; border-radius: 0; outline: none;
+    }
+    textarea { min-height: 96px; resize: vertical; }
+    .primary {
+      width: 100%; margin-top: 22px; padding: 16px 20px; border: 0;
+      background: var(--accent); color: white; cursor: pointer; letter-spacing: .08em;
+    }
+    .primary:disabled { opacity: .55; cursor: wait; }
+    .status-note { margin-top: 16px; min-height: 22px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .existing {
+      margin-top: 18px; padding: 14px; background: #f5f3ee; border-left: 3px solid var(--accent);
+      color: var(--muted); font-size: 13px; line-height: 1.55;
+    }
+    .loading, .error { min-height: 70svh; display: grid; place-items: center; text-align: center; padding: 40px 24px; }
+    .error h2 { font: 400 36px/1.1 Georgia, serif; }
+    .hidden { display: none !important; }
+    footer { padding: 0 24px 50px; text-align: center; color: var(--muted); font-size: 11px; letter-spacing: .12em; }
+    @media (min-width: 680px) {
+      section { padding-left: 56px; padding-right: 56px; }
+      .hero { padding-left: 56px; padding-right: 56px; }
+      .details { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .choice-grid { grid-template-columns: 1fr 1fr; }
+      .rsvp-card { padding: 48px; }
+    }
+      .preview-ribbon { position: fixed; z-index: 50; top: 14px; right: 14px; padding: 8px 11px; background: #2b2c28; color: #fff; font-size: 9px; letter-spacing: .14em; box-shadow: var(--shadow); }
+  </style>
+</head>
+<body>
+  <div class="preview-ribbon">PREVIEW LOCAL</div>
+  <div id="loading" class="loading"><div><div class="monogram">L · S</div><p>Cargando invitación…</p></div></div>
+  <div id="error" class="error hidden"><div><div class="monogram">L · S</div><h2>No encontramos la invitación</h2><p id="errorMessage">Revisa que el enlace esté completo.</p></div></div>
+
+  <main id="app" class="shell hidden">
+    <header class="hero">
+      <div><div id="monogram" class="monogram">L · S</div></div>
+      <div>
+        <div class="eyebrow">NOS CASAMOS</div>
+        <h1 id="coupleNames">L & S</h1>
+        <div id="weddingMonth" class="hero-date">ABRIL 2027</div>
+        <div id="city" class="hero-city">Zacatecas, Zacatecas</div>
+      </div>
+      <div><div class="scroll-hint">DESCUBRE LA INVITACIÓN</div><div class="scroll-line"></div></div>
+    </header>
+
+    <section class="intro">
+      <div class="kicker">Invitación personal</div>
+      <h2 id="guestName" class="guest-name">Invitados</h2>
+      <p class="lead">Hay momentos que se vuelven inolvidables cuando se comparten con las personas que queremos. Nos encantará celebrar este día con ustedes.</p>
+      <div class="seats-pill">Hemos reservado <strong id="reservedSeats">0</strong> <span id="seatWord">lugares</span> para ustedes</div>
+    </section>
+
+    <section id="countdownSection" class="countdown-wrap hidden">
+      <div class="countdown-card">
+        <div class="countdown-title">Falta muy poco</div>
+        <div class="countdown">
+          <div class="time"><strong id="days">—</strong><span>DÍAS</span></div>
+          <div class="time"><strong id="hours">—</strong><span>HORAS</span></div>
+          <div class="time"><strong id="minutes">—</strong><span>MIN</span></div>
+          <div class="time"><strong id="seconds">—</strong><span>SEG</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="details">
+      <article class="detail-card">
+        <div class="kicker">CEREMONIA & RECEPCIÓN</div>
+        <h3 id="venue">Lugar por definir</h3>
+        <p id="venueCity">Zacatecas, Zacatecas</p>
+        <p><span id="ceremonyTime">17:00</span> hrs</p>
+        <a id="mapsBtn" class="link-btn hidden" href="#" target="_blank" rel="noopener">VER UBICACIÓN</a>
+      </article>
+      <article class="detail-card">
+        <div class="kicker">CÓDIGO DE VESTIMENTA</div>
+        <h3 id="dressCode">Formal</h3>
+        <p>Queremos que disfruten la noche con nosotros. Vengan listos para celebrar, cenar y bailar.</p>
+      </article>
+    </section>
+
+    <section class="rsvp-section">
+      <div class="rsvp-card">
+        <div class="kicker">RSVP</div>
+        <h2>¿Nos acompañan?</h2>
+        <p class="sub">Su respuesta se guardará automáticamente en nuestra lista de invitados.</p>
+        <div id="existingResponse" class="existing hidden"></div>
+
+        <div class="choice-grid">
+          <button class="choice" data-status="CONFIRMADO">✓ Sí, confirmamos asistencia</button>
+          <button class="choice" data-status="NO_ASISTE">No podremos asistir</button>
+        </div>
+
+        <div id="attendeesRow" class="form-row hidden">
+          <label for="attendees">NÚMERO DE ASISTENTES</label>
+          <select id="attendees"></select>
+        </div>
+
+        <div class="form-row">
+          <label for="message">MENSAJE PARA LOS NOVIOS (OPCIONAL)</label>
+          <textarea id="message" maxlength="500" placeholder="Escribe algo bonito…"></textarea>
+        </div>
+
+        <button id="submitBtn" class="primary" disabled>GUARDAR RESPUESTA</button>
+        <div id="statusNote" class="status-note" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <footer>HECHO CON CARIÑO · <span id="footerNames">L & S</span></footer>
+  </main>
+
+  <script>
+    const INVITE_ID = 'DEMO';
+    let invitation = null;
+    let selectedStatus = null;
+
+    const $ = (id) => document.getElementById(id);
+
+    function init() {
+      renderInvitation({
+        ok: true,
+        demo: true,
+        guest: { id: 'DEMO', name: 'Carlos & Fernanda', reservedSeats: 2, status: 'PENDIENTE', attendees: 0 },
+        config: {
+          monogram: 'L · S',
+          coupleNames: 'L & S',
+          weddingMonth: 'ABRIL 2027',
+          weddingDateISO: '2027-04-17T17:00:00-06:00',
+          ceremonyTime: '17:00',
+          city: 'Zacatecas, Zacatecas',
+          venue: 'Terraza de ejemplo',
+          mapsUrl: '',
+          dressCode: 'Formal'
+        }
+      });
+    }
+
+    function renderInvitation(data) {
+      if (!data || !data.ok) return showFailure(data && data.message ? data.message : 'Invitación no encontrada.');
+      invitation = data;
+      const { guest, config } = data;
+
+      $('monogram').textContent = config.monogram;
+      $('coupleNames').textContent = config.coupleNames;
+      $('footerNames').textContent = config.coupleNames;
+      $('weddingMonth').textContent = config.weddingMonth;
+      $('city').textContent = config.city;
+      $('guestName').textContent = guest.name;
+      $('reservedSeats').textContent = guest.reservedSeats;
+      $('seatWord').textContent = guest.reservedSeats === 1 ? 'lugar' : 'lugares';
+      $('venue').textContent = config.venue;
+      $('venueCity').textContent = config.city;
+      $('ceremonyTime').textContent = config.ceremonyTime;
+      $('dressCode').textContent = config.dressCode;
+
+      if (config.mapsUrl) {
+        $('mapsBtn').href = config.mapsUrl;
+        $('mapsBtn').classList.remove('hidden');
+      }
+
+      fillAttendees(guest.reservedSeats, guest.attendees);
+      if (guest.status === 'CONFIRMADO' || guest.status === 'NO_ASISTE') showExisting(guest);
+      if (config.weddingDateISO) startCountdown(config.weddingDateISO);
+
+      $('loading').classList.add('hidden');
+      $('app').classList.remove('hidden');
+    }
+
+    function fillAttendees(max, current) {
+      const select = $('attendees');
+      select.innerHTML = '';
+      for (let i = 1; i <= max; i++) {
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = i === 1 ? '1 persona' : `${i} personas`;
+        if (current === i) opt.selected = true;
+        select.appendChild(opt);
+      }
+    }
+
+    function showExisting(guest) {
+      const text = guest.status === 'CONFIRMADO'
+        ? `Respuesta actual: asistencia confirmada para ${guest.attendees} ${guest.attendees === 1 ? 'persona' : 'personas'}. Puedes modificarla si cambian sus planes.`
+        : 'Respuesta actual: nos indicaron que no podrán asistir. Puedes modificarla si cambian sus planes.';
+      $('existingResponse').textContent = text;
+      $('existingResponse').classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.choice').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedStatus = btn.dataset.status;
+        document.querySelectorAll('.choice').forEach(b => b.classList.toggle('selected', b === btn));
+        $('attendeesRow').classList.toggle('hidden', selectedStatus !== 'CONFIRMADO');
+        $('submitBtn').disabled = false;
+        $('statusNote').textContent = '';
+      });
+    });
+
+    $('submitBtn').addEventListener('click', () => {
+      if (!invitation || !selectedStatus) return;
+      const button = $('submitBtn');
+      button.disabled = true;
+      button.textContent = 'GUARDANDO…';
+      $('statusNote').textContent = '';
+
+      const payload = {
+        id: invitation.guest.id,
+        status: selectedStatus,
+        attendees: selectedStatus === 'CONFIRMADO' ? Number($('attendees').value) : 0,
+        message: $('message').value,
+      };
+
+      setTimeout(() => {
+        button.disabled = false;
+        button.textContent = 'GUARDAR RESPUESTA';
+        const demoGuest = {
+          ...invitation.guest,
+          status: payload.status,
+          attendees: payload.attendees
+        };
+        invitation.guest = demoGuest;
+        showExisting(demoGuest);
+        $('statusNote').textContent = payload.status === 'CONFIRMADO'
+          ? '✓ Demo: confirmación guardada. En producción esto actualizará Google Sheets.'
+          : '✓ Demo: respuesta guardada. En producción esto actualizará Google Sheets.';
+      }, 450);
+    });
+
+    function startCountdown(iso) {
+      const target = new Date(iso).getTime();
+      if (!Number.isFinite(target)) return;
+      $('countdownSection').classList.remove('hidden');
+
+      const tick = () => {
+        const diff = Math.max(0, target - Date.now());
+        const totalSeconds = Math.floor(diff / 1000);
+        $('days').textContent = Math.floor(totalSeconds / 86400);
+        $('hours').textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+        $('minutes').textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        $('seconds').textContent = String(totalSeconds % 60).padStart(2, '0');
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    function showFailure(error) {
+      $('loading').classList.add('hidden');
+      $('app').classList.add('hidden');
+      $('errorMessage').textContent = typeof error === 'string' ? error : (error && error.message ? error.message : 'Revisa que el enlace esté completo.');
+      $('error').classList.remove('hidden');
+    }
+
+    init();
+  </script>
+</body>
+</html>
