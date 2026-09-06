@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f7f2e8" />
+  <meta name="theme-color" content="#f7f3ea" />
   <meta name="description" content="Invitación de boda de Lizbeth Esparza Carrillo y Salvador Ortiz Lopez · 24 de abril de 2027 · Zacatecas" />
   <title>Lizbeth & Salvador · 24·04·2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,52 +13,47 @@
 </head>
 <body class="invite-locked">
   <div id="inviteGate" class="invite-gate" aria-label="Abrir invitación">
-    <div class="invite-gate__glow"></div>
-    <div class="envelope-stage">
-      <div class="envelope" aria-hidden="true">
-        <div class="envelope__back"></div>
-        <div class="envelope__letter">
-          <span class="letter-kicker">LIZBETH</span>
-          <strong>L <i>&</i> S</strong>
-          <span class="letter-kicker">SALVADOR</span>
-          <small>24·04·2027</small>
-        </div>
-        <div class="envelope__flap"></div>
-        <div class="envelope__front envelope__front--left"></div>
-        <div class="envelope__front envelope__front--right"></div>
-        <div class="envelope__seal">L&S</div>
+    <div class="gate-card">
+      <div class="gate-card__flap" aria-hidden="true"></div>
+      <div class="gate-card__inner">
+        <p class="gate-eyebrow">INVITACIÓN DE BODA</p>
+        <img class="gate-logo" src="assets/logo.webp" alt="Lizbeth y Salvador · 24·04·2027" />
+        <p id="gateGuest" class="gate-guest">Nuestra invitación</p>
+        <button id="openInviteButton" class="seal-button" type="button" aria-label="Abrir invitación">
+          <span>L&S</span>
+        </button>
+        <p class="gate-open-text">Toca el sello para abrir</p>
       </div>
-      <p class="gate-kicker">TENEMOS ALGO ESPECIAL PARA TI</p>
-      <h1 id="gateGuest">Nuestra invitación</h1>
-      <button id="openInviteButton" class="button button--olive" type="button">Abrir invitación</button>
-      <p class="gate-note">Toca para abrir nuestra invitación.</p>
     </div>
   </div>
 
-  <!-- La música se activará aquí cuando incorporemos una fuente con derechos de uso para la web. -->
-
   <main id="invitationContent">
-    <header class="hero">
-      <div class="hero__image" role="img" aria-label="Lizbeth y Salvador"></div>
-      <div class="hero__veil"></div>
-      <div class="hero__content reveal">
-        <img class="hero__logo" src="assets/logo.webp" alt="Lizbeth y Salvador · 24·04·2027" />
-        <p class="hero__subtitle">ZACATECAS · MÉXICO</p>
-        <a class="button button--glass" href="#rsvp">Confirmar asistencia</a>
+    <header class="hero-editorial">
+      <div class="hero-editorial__copy reveal">
+        <p class="eyebrow">NOS CASAMOS</p>
+        <img class="hero-logo" src="assets/logo.webp" alt="Lizbeth y Salvador · 24·04·2027" />
+        <p class="hero-place">Zacatecas, México</p>
+        <a class="button button--olive" href="#rsvp">Confirmar asistencia</a>
       </div>
-      <a class="scroll-cue" href="#bienvenida" aria-label="Continuar">⌄</a>
+      <figure class="hero-editorial__photo reveal">
+        <img src="assets/foto-portada.webp" alt="Lizbeth y Salvador" />
+      </figure>
+      <div class="hero-date-rail" aria-hidden="true">24 · 04 · 2027</div>
     </header>
 
-    <section id="bienvenida" class="section intro reveal">
+    <section class="section intro reveal">
+      <div class="intro-mark">❦</div>
       <p class="eyebrow">CON MUCHA ILUSIÓN</p>
-      <h2>El comienzo de nuestra historia para siempre</h2>
-      <p class="lead">Hay días que se recuerdan toda la vida, y personas que hacen que esos días sean todavía más especiales. Queremos celebrar nuestro matrimonio rodeados de quienes han sido parte de nuestra historia.</p>
+      <h1>Queremos compartir contigo el día en que comienza nuestro para siempre.</h1>
+      <p class="lead">Hay momentos que se vuelven inolvidables cuando se viven junto a las personas que queremos. Nos encantará celebrar nuestro matrimonio contigo.</p>
       <p class="signature">Lizbeth & Salvador</p>
     </section>
 
-    <section class="section section--sage countdown-section reveal">
-      <p class="eyebrow">24 · ABRIL · 2027</p>
-      <h2>Falta poco</h2>
+    <section class="countdown-band reveal">
+      <div class="countdown-band__label">
+        <span>FALTA POCO</span>
+        <strong>24 de abril de 2027</strong>
+      </div>
       <div class="countdown" id="countdown" aria-live="polite">
         <div><strong id="days">--</strong><span>Días</span></div>
         <div><strong id="hours">--</strong><span>Horas</span></div>
@@ -67,76 +62,80 @@
       </div>
     </section>
 
-    <section class="section event-section reveal">
+    <section class="section events reveal">
       <p class="eyebrow">NUESTRO GRAN DÍA</p>
-      <h2>Te esperamos en Zacatecas</h2>
-      <div class="timeline-line" aria-hidden="true"><span></span></div>
-      <div class="event-grid">
-        <article class="event-card">
-          <div class="event-card__number">01</div>
-          <p class="event-card__type">CEREMONIA RELIGIOSA</p>
-          <h3>Iglesia de Santo Domingo</h3>
-          <p class="event-card__time">1:00 PM</p>
-          <p class="event-card__address">Genaro Codina 722<br>Zacatecas Centro, 98000 Zacatecas, Zac.</p>
-          <a id="ceremonyMap" class="text-link" target="_blank" rel="noopener">Ver ubicación <span>↗</span></a>
+      <h2>Dos momentos, una misma celebración</h2>
+      <div class="event-list">
+        <article class="event-row">
+          <div class="event-row__time">1:00 <small>PM</small></div>
+          <div class="event-row__body">
+            <p class="event-row__type">Ceremonia religiosa</p>
+            <h3>Iglesia de Santo Domingo</h3>
+            <p>Genaro Codina 722, Zacatecas Centro, 98000 Zacatecas, Zac.</p>
+          </div>
+          <a id="ceremonyMap" class="round-link" target="_blank" rel="noopener" aria-label="Ver ubicación de la ceremonia">↗</a>
         </article>
-        <article class="event-card">
-          <div class="event-card__number">02</div>
-          <p class="event-card__type">RECEPCIÓN</p>
-          <h3>Terraza Grand Casa Torres</h3>
-          <p class="event-card__time">6:00 PM</p>
-          <p class="event-card__address">Pzla. de Santo Domingo 518<br>Zacatecas Centro, 98000 Zacatecas, Zac.</p>
-          <a id="receptionMap" class="text-link" target="_blank" rel="noopener">Ver ubicación <span>↗</span></a>
+
+        <article class="event-row">
+          <div class="event-row__time">6:00 <small>PM</small></div>
+          <div class="event-row__body">
+            <p class="event-row__type">Recepción</p>
+            <h3>Terraza Grand Casa Torres</h3>
+            <p>Pzla. de Santo Domingo 518, Zacatecas Centro, 98000 Zacatecas, Zac.</p>
+          </div>
+          <a id="receptionMap" class="round-link" target="_blank" rel="noopener" aria-label="Ver ubicación de la recepción">↗</a>
         </article>
       </div>
     </section>
 
-    <section class="photo-story section--photo reveal" aria-label="Fotografías de Lizbeth y Salvador">
-      <div class="photo-story__copy">
-        <p class="eyebrow">NOSOTROS</p>
-        <h2>Y de pronto, todos los caminos nos trajeron hasta aquí</h2>
-        <p>Estas fotografías son provisionales; más adelante las sustituiremos por nuestra sesión en el centro de Zacatecas.</p>
-      </div>
-      <figure class="soft-photo soft-photo--portrait">
+    <section class="story-split reveal">
+      <figure class="story-split__photo soft-edge-photo">
         <img src="assets/foto-luces.webp" alt="Lizbeth y Salvador juntos" loading="lazy" />
       </figure>
-    </section>
-
-    <section class="section dress-code reveal">
-      <div class="dress-code__card">
-        <p class="eyebrow">CÓDIGO DE VESTIMENTA</p>
-        <h2>Formal</h2>
-        <div class="dress-code__swatches" aria-hidden="true">
-          <span class="swatch swatch--olive"></span>
-          <span class="swatch swatch--gold"></span>
-          <span class="swatch swatch--lavender"></span>
-          <span class="swatch swatch--rose"></span>
-        </div>
-        <p class="lead">Queremos verte increíble. Para ellas, agradecemos reservar el blanco para la novia y evitar tonos blanco, marfil, perla, hueso o similares.</p>
+      <div class="story-split__copy">
+        <p class="eyebrow">NOSOTROS</p>
+        <h2>Todo lo vivido nos trajo hasta aquí.</h2>
+        <p>Estas fotografías son provisionales. Cuando tengamos nuestra sesión en el centro de Zacatecas, las sustituiremos manteniendo esta misma composición.</p>
       </div>
     </section>
 
-    <section class="section section--ivory gifts reveal">
-      <p class="eyebrow">MESA DE REGALOS</p>
-      <h2>Tu presencia es nuestro mejor regalo</h2>
-      <p class="lead">Su presencia es lo más importante para nosotros. Si desean tener un detalle con nosotros, será recibido con mucho cariño.</p>
-      <div class="ornament" aria-hidden="true">❦</div>
+    <section class="section info-grid reveal">
+      <article class="info-card info-card--olive">
+        <p class="eyebrow eyebrow--light">CÓDIGO DE VESTIMENTA</p>
+        <h2>Formal</h2>
+        <p>Para ellas, agradecemos reservar el blanco para la novia y evitar tonos blanco, marfil, perla, hueso o similares.</p>
+        <div class="palette" aria-hidden="true">
+          <span style="--swatch:#69704f"></span>
+          <span style="--swatch:#c8aa74"></span>
+          <span style="--swatch:#c9bfd0"></span>
+          <span style="--swatch:#e6b5b2"></span>
+        </div>
+      </article>
+
+      <article class="info-card">
+        <p class="eyebrow">MESA DE REGALOS</p>
+        <h2>Tu presencia es nuestro mejor regalo</h2>
+        <p>Su presencia es lo más importante para nosotros. Si desean tener un detalle con nosotros, será recibido con mucho cariño.</p>
+      </article>
     </section>
 
-    <section class="closing-photo reveal">
-      <figure class="soft-photo soft-photo--wide">
+    <section class="photo-quote reveal">
+      <figure class="photo-quote__image soft-edge-photo">
         <img src="assets/foto-final.webp" alt="Lizbeth y Salvador sonriendo juntos" loading="lazy" />
       </figure>
-      <div class="closing-photo__quote">
+      <div class="photo-quote__text">
         <span>24·04·2027</span>
-        <p>Nos encantará compartir este capítulo contigo.</p>
+        <p>Será un día para recordar toda la vida.</p>
       </div>
     </section>
 
     <section id="rsvp" class="section rsvp reveal">
-      <p class="eyebrow">RSVP · ANTES DEL 31·03·2027</p>
-      <h2>Confirma tu asistencia</h2>
-      <p class="lead" id="guestGreeting">Será un gusto celebrar contigo.</p>
+      <div class="rsvp-heading">
+        <p class="eyebrow">RSVP</p>
+        <h2>Confirma tu asistencia</h2>
+        <p class="deadline">Antes del 31·03·2027</p>
+        <p class="lead" id="guestGreeting">Será un gusto celebrar contigo.</p>
+      </div>
 
       <form id="rsvpForm" class="rsvp-form">
         <div class="field">
@@ -165,7 +164,7 @@
   </main>
 
   <footer>
-    <img class="footer-logo" src="assets/logo.webp" alt="L & S" loading="lazy" />
+    <img src="assets/logo.webp" alt="Lizbeth y Salvador" class="footer-logo" loading="lazy" />
     <p>Con amor, Lizbeth & Salvador</p>
     <small>24·04·2027 · Zacatecas</small>
   </footer>
