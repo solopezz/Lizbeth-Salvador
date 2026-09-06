@@ -24,6 +24,10 @@ const submitButton = document.getElementById('submitButton');
 const attendanceField = document.getElementById('attendanceField');
 const statusInputs = [...document.querySelectorAll('input[name="status"]')];
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function renderGuest() {
   const spots = Math.max(1, Number(guest.reservedSeats) || 1);
 
@@ -45,11 +49,9 @@ function renderGuest() {
     const yes = statusInputs.find(i => i.value === 'Confirmado');
     if (yes) yes.checked = true;
     attendees.value = String(Math.min(spots, Math.max(1, Number(guest.attendees) || 1)));
-    formMessage.textContent = 'Ya habías confirmado. Puedes modificar tu respuesta si lo necesitas.';
   } else if (guest.status === 'NO_ASISTE') {
     const no = statusInputs.find(i => i.value === 'No asistirá');
     if (no) no.checked = true;
-    formMessage.textContent = 'Ya habías indicado que no asistirías. Puedes modificar tu respuesta si cambian tus planes.';
   }
 
   syncAttendance();
@@ -93,6 +95,7 @@ function loadGuestWithJsonp() {
     url.searchParams.set('action', 'invite');
     url.searchParams.set('id', inviteId);
     url.searchParams.set('callback', callbackName);
+    url.searchParams.set('_', Date.now().toString());
     script.src = url.toString();
     script.onerror = () => finish(new Error('No se pudo conectar con el RSVP.'));
     document.head.appendChild(script);
@@ -129,53 +132,66 @@ async function initializeInvitation() {
   }
 }
 
-function submitRsvpToAppsScript(payload) {
-  return new Promise((resolve, reject) => {
-    const iframeName = `rsvpTarget_${Date.now()}`;
-    const iframe = document.createElement('iframe');
-    iframe.name = iframeName;
-    iframe.style.display = 'none';
-    iframe.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(iframe);
+function sendRsvpPost(payload) {
+  const iframeName = `rsvpTarget_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  const iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  iframe.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(iframe);
 
-    const postForm = document.createElement('form');
-    postForm.method = 'POST';
-    postForm.action = CONFIG.apiUrl;
-    postForm.target = iframeName;
-    postForm.style.display = 'none';
+  const postForm = document.createElement('form');
+  postForm.method = 'POST';
+  postForm.action = CONFIG.apiUrl;
+  postForm.target = iframeName;
+  postForm.style.display = 'none';
 
-    Object.entries(payload).forEach(([key, value]) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = String(value ?? '');
-      postForm.appendChild(input);
-    });
-
-    document.body.appendChild(postForm);
-
-    const timer = setTimeout(() => cleanup(new Error('El servidor tardó demasiado en responder.')), 12000);
-
-    function onMessage(event) {
-      if (event.source !== iframe.contentWindow) return;
-      const data = event.data;
-      if (!data || data.source !== 'wedding-rsvp') return;
-
-      if (data.ok) cleanup(null, data);
-      else cleanup(new Error(data.message || 'No se pudo guardar la respuesta.'));
-    }
-
-    function cleanup(error, data) {
-      clearTimeout(timer);
-      window.removeEventListener('message', onMessage);
-      postForm.remove();
-      setTimeout(() => iframe.remove(), 100);
-      error ? reject(error) : resolve(data);
-    }
-
-    window.addEventListener('message', onMessage);
-    postForm.submit();
+  Object.entries(payload).forEach(([key, value]) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = String(value ?? '');
+    postForm.appendChild(input);
   });
+
+  document.body.appendChild(postForm);
+  postForm.submit();
+  postForm.remove();
+
+  return () => setTimeout(() => iframe.remove(), 100);
+}
+
+async function verifySavedRsvp(payload) {
+  const expectedAttendees = payload.status === 'CONFIRMADO' ? Number(payload.attendees) : 0;
+  let lastError = null;
+
+  for (let attempt = 0; attempt < 12; attempt++) {
+    await sleep(attempt === 0 ? 700 : 500);
+
+    try {
+      const latest = await loadGuestWithJsonp();
+      const sameStatus = latest.status === payload.status;
+      const sameAttendees = Number(latest.attendees || 0) === expectedAttendees;
+
+      if (sameStatus && sameAttendees) {
+        return latest;
+      }
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError || new Error('No pudimos verificar la respuesta guardada. Intenta recargar la página.');
+}
+
+async function submitRsvpToAppsScript(payload) {
+  const cleanupIframe = sendRsvpPost(payload);
+
+  try {
+    return await verifySavedRsvp(payload);
+  } finally {
+    cleanupIframe();
+  }
 }
 
 form.addEventListener('submit', async event => {
@@ -197,21 +213,23 @@ form.addEventListener('submit', async event => {
 
   submitButton.disabled = true;
   submitButton.textContent = 'Guardando...';
-  formMessage.textContent = '';
+  formMessage.textContent = 'Estamos registrando tu respuesta...';
 
   try {
     if (!CONFIG.apiUrl || inviteId === 'DEMO') {
-      await new Promise(resolve => setTimeout(resolve, 450));
+      await sleep(450);
       localStorage.setItem(`rsvp-${inviteId}`, JSON.stringify(payload));
-      formMessage.textContent = 'Respuesta guardada en modo demo. Al conectar Google Sheets se actualizará automáticamente.';
+      formMessage.textContent = 'Respuesta guardada en modo demo.';
     } else {
-      const result = await submitRsvpToAppsScript(payload);
-      guest.status = status;
-      guest.attendees = payload.attendees;
-      formMessage.textContent = result.message || '¡Gracias! Tu respuesta fue registrada correctamente.';
+      const latest = await submitRsvpToAppsScript(payload);
+      guest = { ...guest, ...latest };
+      renderGuest();
+      formMessage.textContent = status === 'CONFIRMADO'
+        ? '¡Gracias por confirmar! Nos emociona compartir este día contigo.'
+        : 'Gracias por avisarnos. Te tendremos presente en este día especial.';
     }
   } catch (error) {
-    formMessage.textContent = error.message || 'No pudimos guardar tu respuesta. Intenta de nuevo.';
+    formMessage.textContent = error.message || 'No pudimos verificar tu respuesta. Recarga la página antes de volver a enviarla.';
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = 'Guardar respuesta';
