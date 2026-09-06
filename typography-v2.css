@@ -1,0 +1,158 @@
+/* Sistema tipográfico unificado: Playfair Display + Montserrat */
+body,
+button,
+a,
+input,
+select,
+textarea,
+.micro,
+.lead,
+.hero__topline,
+.hero__date,
+.event-card__address,
+.outline-button,
+.open-button,
+.cover small,
+.music-pill small,
+.details__item > p:last-child,
+.gallery__label span,
+.field,
+.form-message,
+.footer small {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.section h3,
+.event-card h3,
+.details h3,
+.rsvp h3,
+.cover__crest,
+.cover__crest i,
+.cover h1,
+.cover h1 em,
+.cover__date,
+.cover__guest,
+.music-pill b,
+.hero h2,
+.hero h2 span,
+.signature,
+.story__caption p,
+.story__seal,
+.date-lockup strong,
+.countdown-section__copy,
+.countdown strong,
+.event-card__number,
+.event-card__time,
+.event-photo-band p,
+.details__icon,
+.gallery__label b,
+.footer p {
+  font-family: 'Playfair Display', serif !important;
+}
+
+.cover h1,
+.hero h2 {
+  font-weight: 500 !important;
+  font-style: normal !important;
+  letter-spacing: -0.025em;
+  line-height: 0.98 !important;
+}
+
+.cover h1 em,
+.hero h2 span,
+.cover__crest i,
+.signature,
+.countdown-section__copy,
+.event-photo-band p,
+.footer p {
+  font-style: italic !important;
+  font-weight: 400 !important;
+}
+
+.cover h1 {
+  font-size: clamp(2.7rem, 10vw, 4.6rem) !important;
+}
+
+.hero h2 {
+  font-size: clamp(3.4rem, 14vw, 5.5rem) !important;
+}
+
+.hero h2 span {
+  font-size: .38em !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0;
+}
+
+.section h3,
+.event-card h3,
+.details h3,
+.rsvp h3 {
+  font-weight: 500 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.18 !important;
+}
+
+.intro h3 {
+  font-size: 2.35rem !important;
+}
+
+.event-card h3 {
+  font-size: 2.15rem !important;
+}
+
+.details h3 {
+  font-size: 1.9rem !important;
+}
+
+.rsvp h3 {
+  font-size: 2.25rem !important;
+}
+
+.signature,
+.countdown-section__copy,
+.event-photo-band p,
+.footer p {
+  letter-spacing: 0;
+}
+
+.signature {
+  font-size: 2rem !important;
+}
+
+.countdown-section__copy {
+  font-size: 1.65rem !important;
+}
+
+.event-photo-band p {
+  font-size: 2rem !important;
+}
+
+.cover__guest,
+.story__caption p {
+  line-height: 1.5 !important;
+}
+
+.micro,
+.open-button,
+.outline-button,
+.hero__topline,
+.hero__date,
+.footer small {
+  letter-spacing: .14em !important;
+}
+
+@media (max-width: 420px) {
+  .cover h1 {
+    font-size: 2.9rem !important;
+  }
+
+  .hero h2 {
+    font-size: 3.6rem !important;
+  }
+
+  .intro h3,
+  .event-card h3,
+  .rsvp h3 {
+    font-size: 1.95rem !important;
+  }
+}
