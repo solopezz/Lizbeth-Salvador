@@ -34,20 +34,14 @@ function onOpen() {
     .addToUi();
 }
 
-/**
- * GET público.
- * ?action=invite&id=ABC&callback=miFuncion devuelve JSONP.
- */
 function doGet(e) {
   try {
     const p = (e && e.parameter) || {};
-
     if (p.action === 'invite') {
       const callback = validateCallback_(p.callback || 'weddingRsvpCallback');
       const result = loadInvitation_(p.id || '');
       return jsonp_(callback, result);
     }
-
     return ContentService
       .createTextOutput('RSVP Lizbeth & Salvador: API activa')
       .setMimeType(ContentService.MimeType.TEXT);
@@ -57,13 +51,8 @@ function doGet(e) {
   }
 }
 
-/**
- * POST desde el formulario del sitio.
- * Recibe application/x-www-form-urlencoded para evitar problemas CORS.
- */
 function doPost(e) {
   let result;
-
   try {
     const p = (e && e.parameter) || {};
     result = saveRsvp_({
@@ -76,7 +65,6 @@ function doPost(e) {
     result = { ok: false, message: err && err.message ? err.message : 'No se pudo guardar la respuesta.' };
   }
 
-  // La respuesta se carga en un iframe oculto del sitio y avisa a la página padre.
   const payload = JSON.stringify({
     source: 'wedding-rsvp',
     ok: !!result.ok,
@@ -92,10 +80,6 @@ function doPost(e) {
   );
 }
 
-/**
- * Ejecutar UNA VEZ desde Apps Script vinculado al Google Sheet.
- * Es seguro volver a ejecutarlo: no borra la lista existente.
- */
 function setupProject() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   if (!ss) throw new Error('Abre Apps Script desde Extensiones → Apps Script dentro del Google Sheet.');
@@ -135,7 +119,7 @@ function setupProject() {
 
   sheet.getRange(1, 1, 1, headers.length)
     .setFontWeight('bold')
-    .setBackground('#6E5D4B')
+    .setBackground('#586143')
     .setFontColor('#FFFFFF');
 
   const statusRule = SpreadsheetApp.newDataValidation()
@@ -174,16 +158,17 @@ function setupSummary_(ss) {
     ['Lugares pendientes de respuesta'],
   ]);
 
-  sheet.getRange('B2').setFormula('=COUNTA(Invitados!B2:B)');
-  sheet.getRange('B3').setFormula('=SUM(Invitados!C2:C)');
-  sheet.getRange('B4').setFormula('=SUMIF(Invitados!D2:D,"CONFIRMADO",Invitados!E2:E)');
-  sheet.getRange('B5').setFormula('=COUNTIF(Invitados!D2:D,"PENDIENTE")');
-  sheet.getRange('B6').setFormula('=COUNTIF(Invitados!D2:D,"NO_ASISTE")');
-  sheet.getRange('B7').setFormula('=SUMIF(Invitados!D2:D,"PENDIENTE",Invitados!C2:C)');
+  // R1C1 evita depender del idioma o separador regional de la hoja.
+  sheet.getRange('B2').setFormulaR1C1('=COUNTA(Invitados!C2)');
+  sheet.getRange('B3').setFormulaR1C1('=SUM(Invitados!C3)');
+  sheet.getRange('B4').setFormulaR1C1('=SUMIF(Invitados!C4,"CONFIRMADO",Invitados!C5)');
+  sheet.getRange('B5').setFormulaR1C1('=COUNTIF(Invitados!C4,"PENDIENTE")');
+  sheet.getRange('B6').setFormulaR1C1('=COUNTIF(Invitados!C4,"NO_ASISTE")');
+  sheet.getRange('B7').setFormulaR1C1('=SUMIF(Invitados!C4,"PENDIENTE",Invitados!C3)');
 
   sheet.getRange('A1:B1')
     .setFontWeight('bold')
-    .setBackground('#6E5D4B')
+    .setBackground('#586143')
     .setFontColor('#FFFFFF');
   sheet.getRange('A1:B7').setBorder(true, true, true, true, true, true);
   sheet.setColumnWidth(1, 280);
