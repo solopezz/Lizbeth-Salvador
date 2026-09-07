@@ -1,0 +1,107 @@
+/* Sección de padrinos */
+.padrinos-section{
+  position:relative;
+  overflow:hidden;
+  padding:78px 34px 74px;
+  background:#f3eee4;
+  text-align:center;
+}
+
+.padrinos-section:before,
+.padrinos-section:after{
+  content:'';
+  position:absolute;
+  width:180px;
+  height:180px;
+  border:1px solid rgba(86,99,72,.12);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.padrinos-section:before{left:-120px;top:42px}
+.padrinos-section:after{right:-125px;bottom:38px}
+
+.padrinos-section__ornament{
+  position:relative;
+  z-index:1;
+  margin:0 auto 16px;
+  color:var(--rose);
+  font-family:'Playfair Display',serif;
+  font-size:2.1rem;
+  line-height:1;
+}
+
+.padrinos-section h3{
+  position:relative;
+  z-index:1;
+  margin:0 auto;
+  color:var(--olive-2);
+  font-family:'Playfair Display',serif;
+  font-size:2.35rem;
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-.02em;
+}
+
+.padrinos-section__intro{
+  position:relative;
+  z-index:1;
+  max-width:390px;
+  margin:18px auto 34px;
+  color:var(--muted);
+  font-family:'Montserrat',sans-serif;
+  font-size:.82rem;
+  line-height:1.8;
+}
+
+.padrinos-list{
+  position:relative;
+  z-index:1;
+  max-width:390px;
+  margin:0 auto;
+  border-top:1px solid var(--line);
+}
+
+.padrino-item{
+  position:relative;
+  padding:26px 6px 27px;
+  border-bottom:1px solid var(--line);
+}
+
+.padrino-item__index{
+  position:absolute;
+  top:17px;
+  right:3px;
+  color:rgba(86,99,72,.22);
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem;
+  line-height:1;
+}
+
+.padrino-item .micro{
+  margin-bottom:8px;
+}
+
+.padrino-item h4{
+  margin:0;
+  padding:0 22px;
+  color:var(--olive-2);
+  font-family:'Playfair Display',serif;
+  font-size:1.35rem;
+  font-weight:500;
+  line-height:1.4;
+}
+
+.padrino-item h4 span{
+  display:inline-block;
+  margin:0 .18em;
+  color:var(--rose);
+  font-style:italic;
+  font-weight:400;
+}
+
+@media (max-width:420px){
+  .padrinos-section{padding:68px 26px 66px}
+  .padrinos-section h3{font-size:2.05rem}
+  .padrino-item h4{font-size:1.22rem}
+}
