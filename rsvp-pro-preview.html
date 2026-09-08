@@ -118,7 +118,7 @@ a{color:inherit}
 
 .gifts{text-align:center;padding:78px 28px}.gifts h2{font-size:46px;margin:0 0 10px}.gifts p{max-width:340px;margin:0 auto;font-size:17px;line-height:1.45}.gift-icon{font-size:29px;color:var(--gold);margin-bottom:14px}
 
-.rsvp{position:relative;color:white;background:linear-gradient(rgba(46,56,45,.84),rgba(46,56,45,.9)),url('assets/foto-final.webp') center/cover;padding:76px 24px 82px;text-align:center}
+.rsvp{position:relative;color:white;background:linear-gradient(rgba(46,56,45,.84),rgba(46,56,45,.9)),url('https://solopezz.github.io/Lizbeth-Salvador/assets/foto-final.webp') center/cover;padding:76px 24px 82px;text-align:center}
 .rsvp h2{font-family:Allura,cursive;font-size:49px;font-weight:400;margin:0 0 8px}.rsvp__lead{font-size:16px;line-height:1.4;margin:0 auto 28px;max-width:350px;color:rgba(255,255,255,.9)}
 .rsvp__panel{background:rgba(247,245,237,.96);color:var(--ink);padding:26px 20px 22px;text-align:left;box-shadow:0 18px 45px rgba(0,0,0,.18)}
 .field{margin-bottom:18px}.field>label{display:block;font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{position:relative}.choice input{position:absolute;opacity:0}.choice span{display:block;border:1px solid rgba(82,78,70,.25);padding:11px 8px;text-align:center;font-family:Montserrat,sans-serif;font-size:9px;background:white}.choice input:checked+span{border-color:var(--gold);background:#f4ede0;color:#715b38}
@@ -126,9 +126,10 @@ select,textarea{width:100%;border:1px solid rgba(82,78,70,.25);background:white;
 
 .footer{text-align:center;padding:72px 26px 50px;background:#f5f1e8}.footer img{width:130px;height:auto;opacity:.85}.footer p{font-family:Allura,cursive;font-size:31px;margin:14px 0 4px}.footer small{font-family:Montserrat,sans-serif;font-size:8px;letter-spacing:.18em;color:#777268}
 
-.anim{opacity:0;transform:translateY(30px);filter:blur(4px);transition:opacity .95s cubic-bezier(.2,.72,.2,1),transform .95s cubic-bezier(.2,.72,.2,1),filter .95s ease}
-.anim[data-anim="left"]{transform:translateX(-36px)}.anim[data-anim="right"]{transform:translateX(36px)}.anim[data-anim="zoom"]{transform:scale(.94)}
-.anim.visible{opacity:1;transform:none;filter:none}.stagger>*{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}.stagger.visible>*{opacity:1;transform:none}.stagger.visible>*:nth-child(2){transition-delay:.08s}.stagger.visible>*:nth-child(3){transition-delay:.16s}.stagger.visible>*:nth-child(4){transition-delay:.24s}.stagger.visible>*:nth-child(5){transition-delay:.32s}
+.anim{opacity:1;transform:none;filter:none;transition:opacity .95s cubic-bezier(.2,.72,.2,1),transform .95s cubic-bezier(.2,.72,.2,1),filter .95s ease}
+.anim.anim-ready{opacity:0;transform:translateY(30px);filter:blur(4px)}
+.anim.anim-ready[data-anim="left"]{transform:translateX(-36px)}.anim.anim-ready[data-anim="right"]{transform:translateX(36px)}.anim.anim-ready[data-anim="zoom"]{transform:scale(.94)}
+.anim.anim-ready.visible{opacity:1;transform:none;filter:none}.stagger>*{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}.stagger.anim-ready>*{opacity:0;transform:translateY(14px)}.stagger.anim-ready.visible>*{opacity:1;transform:none}.stagger.anim-ready.visible>*:nth-child(2){transition-delay:.08s}.stagger.anim-ready.visible>*:nth-child(3){transition-delay:.16s}.stagger.anim-ready.visible>*:nth-child(4){transition-delay:.24s}.stagger.anim-ready.visible>*:nth-child(5){transition-delay:.32s}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.anim,.stagger>*{opacity:1!important;transform:none!important;filter:none!important}}
 @media (min-width:700px){.music{right:calc((100vw - 500px)/2 + 16px)}}
 </style>
@@ -137,10 +138,10 @@ select,textarea{width:100%;border:1px solid rgba(82,78,70,.25);background:white;
 <button class="music" id="musicButton" type="button" aria-label="Música"><span>♫</span></button>
 <div class="site">
   <header class="hero" id="top">
-    <img class="hero__photo" src="assets/foto-portada.webp" alt="Lizbeth y Salvador">
+    <img class="hero__photo" src="https://solopezz.github.io/Lizbeth-Salvador/assets/foto-portada.webp" alt="Lizbeth y Salvador">
     <div class="hero__wash"></div>
     <div class="hero__top">
-      <img class="hero__logo" src="assets/logo.webp" alt="Lizbeth y Salvador" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <img class="hero__logo" src="https://solopezz.github.io/Lizbeth-Salvador/assets/logo.webp" alt="Lizbeth y Salvador" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
       <div class="hero__fallback script">L&S</div>
       <h1>Nuestra boda</h1>
       <p>Lizbeth & Salvador</p>
@@ -182,7 +183,7 @@ select,textarea{width:100%;border:1px solid rgba(82,78,70,.25);background:white;
       <p class="eyebrow">Celebra con nosotros</p>
       <h2>Save the Date</h2>
       <div class="save__date"><span>24</span><span>04</span><span>27</span><small>Sábado · Zacatecas</small></div>
-      <div class="save__photo"><img src="assets/foto-luces.webp" alt="Lizbeth y Salvador"></div>
+      <div class="save__photo"><img src="https://solopezz.github.io/Lizbeth-Salvador/assets/foto-luces.webp" alt="Lizbeth y Salvador"></div>
       <p class="save__quote">Una fecha para guardar, una historia para celebrar.</p>
     </section>
 
@@ -214,8 +215,8 @@ select,textarea{width:100%;border:1px solid rgba(82,78,70,.25);background:white;
     </section>
 
     <section class="photo-break" aria-hidden="true">
-      <img class="parallax" src="assets/foto-final.webp" alt="">
-      <div class="photo-break__mark"><img src="assets/logo.webp" alt=""></div>
+      <img class="parallax" src="https://solopezz.github.io/Lizbeth-Salvador/assets/foto-final.webp" alt="">
+      <div class="photo-break__mark"><img src="https://solopezz.github.io/Lizbeth-Salvador/assets/logo.webp" alt=""></div>
     </section>
 
     <section class="section itinerary anim">
@@ -243,10 +244,10 @@ select,textarea{width:100%;border:1px solid rgba(82,78,70,.25);background:white;
     </section>
 
     <section class="gallery anim" data-anim="zoom">
-      <figure class="gallery__hero"><img src="assets/foto-portada.webp" alt="Lizbeth y Salvador"></figure>
+      <figure class="gallery__hero"><img src="https://solopezz.github.io/Lizbeth-Salvador/assets/foto-portada.webp" alt="Lizbeth y Salvador"></figure>
       <div class="gallery__duo">
-        <figure><img src="assets/foto-luces.webp" alt="Lizbeth y Salvador"></figure>
-        <figure><img src="assets/foto-final.webp" alt="Lizbeth y Salvador"></figure>
+        <figure><img src="https://solopezz.github.io/Lizbeth-Salvador/assets/foto-luces.webp" alt="Lizbeth y Salvador"></figure>
+        <figure><img src="https://solopezz.github.io/Lizbeth-Salvador/assets/foto-final.webp" alt="Lizbeth y Salvador"></figure>
       </div>
     </section>
 
@@ -274,7 +275,7 @@ select,textarea{width:100%;border:1px solid rgba(82,78,70,.25);background:white;
     </section>
 
     <footer class="footer anim">
-      <img src="assets/logo.webp" alt="Lizbeth y Salvador">
+      <img src="https://solopezz.github.io/Lizbeth-Salvador/assets/logo.webp" alt="Lizbeth y Salvador">
       <p>Gracias por ser parte de nuestra historia.</p>
       <small>ZACATECAS · 24 · 04 · 2027</small>
     </footer>
@@ -290,7 +291,17 @@ let guest={id:'DEMO',name:'Invitado especial',reservedSeats:2,status:'PENDIENTE'
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function tick(){const diff=Math.max(0,new Date(CONFIG.weddingDate)-Date.now());$('#days').textContent=Math.floor(diff/86400000);$('#hours').textContent=String(Math.floor(diff/3600000)%24).padStart(2,'0');$('#minutes').textContent=String(Math.floor(diff/60000)%60).padStart(2,'0');$('#seconds').textContent=String(Math.floor(diff/1000)%60).padStart(2,'0')}tick();setInterval(tick,1000);
 
-const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');if(e.target.classList.contains('itinerary'))setTimeout(()=>e.target.querySelector('.timeline')?.classList.add('visible'),180)}}),{threshold:.12,rootMargin:'0px 0px -6%'});$$('.anim').forEach(el=>io.observe(el));
+try{
+  const animated=$$('.anim'),staggered=$$('.stagger');
+  if('IntersectionObserver' in window){
+    animated.forEach(el=>el.classList.add('anim-ready'));
+    staggered.forEach(el=>el.classList.add('anim-ready'));
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');if(e.target.classList.contains('itinerary'))setTimeout(()=>e.target.querySelector('.timeline')?.classList.add('visible'),180)}}),{threshold:.08,rootMargin:'0px 0px -4%'});
+    animated.forEach(el=>io.observe(el));
+    requestAnimationFrame(()=>animated.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*.96)el.classList.add('visible')}));
+  }else{animated.forEach(el=>el.classList.add('visible'));staggered.forEach(el=>el.classList.add('visible'))}
+}catch(err){$$('.anim,.stagger').forEach(el=>{el.classList.remove('anim-ready');el.classList.add('visible')})}
+
 window.addEventListener('scroll',()=>{const y=window.scrollY;$$('.parallax').forEach(img=>{const r=img.parentElement.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){const p=(innerHeight-r.top)/(innerHeight+r.height);img.style.transform=`translateY(${(p-.5)*34}px) scale(1.04)`}})},{passive:true});
 
 $('#musicButton').addEventListener('click',e=>{e.currentTarget.classList.toggle('playing');e.currentTarget.setAttribute('aria-label',e.currentTarget.classList.contains('playing')?'Pausar música':'Música')});
