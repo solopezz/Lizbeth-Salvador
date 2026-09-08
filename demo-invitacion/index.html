@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4efe7">
+<title>Valentina & Sebastián — Nos casamos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Italiana&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#f7f2e9;--paper:#fffdf8;--ink:#293128;--olive:#5b6851;--olive2:#79846d;--gold:#aa8c5d;--line:rgba(91,104,81,.22);--shadow:0 24px 70px rgba(39,48,36,.15)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ivory);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}body.lock{overflow:hidden}.serif{font-family:'Italiana',serif}.script{font-family:'Parisienne',cursive}.eyebrow{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase}.muted{opacity:.68}.section{padding:78px 22px;position:relative}.wrap{width:min(980px,100%);margin:auto}.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}.reveal.show{opacity:1;transform:none}.btn{appearance:none;border:0;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 22px;border-radius:999px;background:var(--olive);color:white;font:500 .82rem 'DM Sans';letter-spacing:.06em;box-shadow:0 12px 26px rgba(58,73,53,.18);transition:.25s}.btn:active{transform:scale(.97)}.btn.ghost{color:var(--olive);background:transparent;border:1px solid rgba(91,104,81,.4);box-shadow:none}.divider{display:flex;align-items:center;gap:14px;justify-content:center;margin:18px auto 28px;color:var(--gold)}.divider:before,.divider:after{content:"";height:1px;width:54px;background:var(--gold);opacity:.55}.divider i{font-style:normal;font-size:14px}
+/* Intro */
+.intro{position:fixed;inset:0;z-index:1000;background:linear-gradient(145deg,#e9e0d2,#f8f4ec 48%,#dce1d4);display:grid;place-items:center;padding:24px;transition:opacity .9s ease,visibility .9s}.intro.opened{opacity:0;visibility:hidden;pointer-events:none}.grain{position:absolute;inset:0;opacity:.15;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}.envelope-scene{text-align:center;position:relative;width:min(420px,92vw)}.intro-title{font-family:'Parisienne';font-size:clamp(2.25rem,10vw,4.2rem);margin:0 0 22px;color:#46513f}.intro-sub{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;margin-bottom:30px}.envelope{width:100%;aspect-ratio:1.5/1;position:relative;filter:drop-shadow(0 24px 28px rgba(60,54,43,.18));perspective:900px}.env-back{position:absolute;inset:0;background:#ded4c4;border-radius:5px}.env-front{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:5px}.env-front:before{content:"";position:absolute;left:-10%;right:50%;bottom:-34%;height:112%;background:#eee5d8;transform:rotate(31deg);transform-origin:bottom left}.env-front:after{content:"";position:absolute;right:-10%;left:50%;bottom:-34%;height:112%;background:#e8dfd1;transform:rotate(-31deg);transform-origin:bottom right}.flap{position:absolute;z-index:4;top:0;left:0;right:0;height:59%;background:#f1e8da;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1s cubic-bezier(.25,.8,.25,1),z-index .1s .55s}.intro.animating .flap{transform:rotateX(180deg);z-index:1}.card-peek{position:absolute;z-index:2;left:8%;right:8%;bottom:5%;height:82%;border-radius:4px;background:#fffaf1;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:transform 1.15s .35s cubic-bezier(.2,.7,.2,1);box-shadow:0 8px 18px rgba(60,54,43,.12)}.intro.animating .card-peek{transform:translateY(-55%)}.monogram{width:76px;height:76px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font:2rem 'Italiana';color:var(--olive);margin-bottom:10px}.seal{position:absolute;z-index:5;left:50%;top:49%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#9aa585,#63705a);color:#fff;display:grid;place-items:center;font:1.25rem 'Italiana';box-shadow:0 7px 15px rgba(54,65,49,.25);transition:.3s}.intro.animating .seal{opacity:0;transform:translate(-50%,-50%) scale(.7)}.open-btn{margin-top:30px;background:none;border:0;color:var(--olive);font:500 .8rem 'DM Sans';text-transform:uppercase;letter-spacing:.17em;padding:12px 18px;cursor:pointer;border-bottom:1px solid rgba(91,104,81,.45)}
+/* Hero */
+.hero{min-height:100svh;position:relative;display:flex;align-items:flex-end;isolation:isolate;background:#363c33;overflow:hidden}.hero-img{position:absolute;inset:-5%;z-index:-3;background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=88');background-size:cover;background-position:center;transform:scale(1.03);will-change:transform}.hero:after{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(22,27,20,.12) 10%,rgba(28,31,25,.22) 45%,rgba(22,28,20,.78) 100%)}.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 50% 15%,rgba(255,238,207,.24),transparent 38%)}.hero-content{color:#fff;text-align:center;width:100%;padding:110px 22px 62px;text-shadow:0 2px 15px rgba(0,0,0,.22)}.hero-content .eyebrow{margin-bottom:16px}.names{font-family:'Parisienne';font-size:clamp(4rem,18vw,8.4rem);line-height:.77;margin:0}.amp{font:2rem 'Italiana';display:block;margin:15px 0}.date-hero{font:1.4rem 'Italiana';letter-spacing:.08em;margin-top:24px}.scroll{margin-top:38px;font-size:.64rem;letter-spacing:.23em;text-transform:uppercase;opacity:.82}.scroll span{display:block;width:1px;height:42px;background:white;margin:14px auto 0;animation:pulse 1.8s infinite}@keyframes pulse{50%{opacity:.25;transform:scaleY(.7)}}
+/* Music */
+.music{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:50;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(64,75,58,.9);backdrop-filter:blur(10px);color:white;display:grid;place-items:center;box-shadow:0 9px 24px rgba(30,39,28,.22);cursor:pointer}.music.playing:before{content:"♫";animation:spin 5s linear infinite}.music:before{content:"♪";font-size:18px}@keyframes spin{to{transform:rotate(360deg)}}
+/* Story */
+.intro-copy{text-align:center;background:var(--paper)}.intro-copy h2{font:clamp(2.1rem,8vw,3.8rem) 'Italiana';font-weight:400;margin:0}.intro-copy p{max-width:610px;margin:0 auto;line-height:1.9;font-size:.96rem}.quote{font:2rem 'Parisienne';color:var(--olive);margin-top:27px}.parents{margin-top:42px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.parent{background:var(--paper);padding:30px 18px}.parent strong{font:1.18rem 'Italiana';display:block;margin:10px 0 6px}
+/* Date */
+.save{background:linear-gradient(135deg,#e6e6da,#f6f2e8);text-align:center;overflow:hidden}.save h2{font:clamp(2.5rem,10vw,5rem) 'Parisienne';font-weight:400;margin:0}.date-card{width:min(640px,100%);margin:35px auto 0;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow);backdrop-filter:blur(8px);padding:28px 18px}.big-date{font:clamp(3.8rem,17vw,7.5rem) 'Italiana';line-height:.8;color:var(--olive)}.month{font:1.3rem 'Italiana';letter-spacing:.16em;text-transform:uppercase;margin-top:12px}.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:28px}.countdown div{padding:14px 4px;border-top:1px solid var(--line)}.countdown b{display:block;font:1.65rem 'Italiana';font-weight:400}.countdown span{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65}
+/* Events */
+.events{background:var(--paper)}.section-title{text-align:center}.section-title h2{font:clamp(2.2rem,9vw,4rem) 'Italiana';font-weight:400;margin:0}.event-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:38px}.event-card{position:relative;border:1px solid var(--line);padding:38px 26px;text-align:center;background:#fbf8f1;overflow:hidden}.event-card:before{content:"";position:absolute;width:100px;height:100px;border:1px solid rgba(170,140,93,.17);border-radius:50%;top:-50px;right:-50px}.event-icon{font-size:28px;color:var(--gold);margin-bottom:14px}.event-card h3{font:1.7rem 'Italiana';font-weight:400;margin:5px 0}.event-card .time{font:1.35rem 'Italiana';color:var(--olive);margin:14px 0}.event-card p{font-size:.86rem;line-height:1.7;opacity:.78;margin-bottom:22px}
+/* Photo break */
+.photo-break{height:66svh;min-height:470px;position:relative;background:url('https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=88') center/cover fixed}.photo-break:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(31,38,27,.55),rgba(31,38,27,.05))}.photo-quote{position:absolute;z-index:2;bottom:50px;left:50%;transform:translateX(-50%);width:min(620px,90%);color:white;text-align:center;font:clamp(2rem,8vw,4.2rem) 'Parisienne';text-shadow:0 3px 18px rgba(0,0,0,.25)}
+/* Sponsors */
+.sponsors{background:#eef0e8}.sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}.sponsor{background:rgba(255,255,255,.58);padding:25px 12px;text-align:center;border:1px solid rgba(91,104,81,.12)}.sponsor .ico{font-size:25px;margin-bottom:9px}.sponsor small{text-transform:uppercase;letter-spacing:.13em;font-size:.57rem;opacity:.62}.sponsor strong{font:1.05rem 'Italiana';font-weight:400;display:block;margin-top:8px}
+/* Timeline */
+.timeline{background:var(--paper)}.line{width:min(700px,100%);margin:38px auto 0;position:relative}.line:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)}.stop{width:50%;padding:0 30px 36px 0;text-align:right;position:relative}.stop:nth-child(even){margin-left:50%;text-align:left;padding:0 0 36px 30px}.stop:after{content:"";position:absolute;right:-5px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px var(--paper)}.stop:nth-child(even):after{left:-4px;right:auto}.stop time{font:.75rem 'DM Sans';letter-spacing:.12em;color:var(--gold)}.stop strong{display:block;font:1.25rem 'Italiana';font-weight:400;margin-top:4px}
+/* Dress */
+.dress{text-align:center;background:linear-gradient(135deg,#ebe6dc,#f7f3ec)}.dress-swatches{display:flex;justify-content:center;gap:10px;margin:27px 0}.swatch{width:33px;height:33px;border-radius:50%;border:3px solid rgba(255,255,255,.7);box-shadow:0 4px 10px rgba(0,0,0,.08)}.dress p{line-height:1.8;max-width:540px;margin:0 auto}.dress .formal{font:2.6rem 'Parisienne';color:var(--olive);margin:16px 0}
+/* Map */
+.location{background:var(--paper);padding-bottom:0}.mapbox{margin-top:34px;position:relative;height:420px;overflow:hidden}.mapbox iframe{width:100%;height:100%;border:0;filter:saturate(.65) sepia(.08)}.mapcard{position:absolute;left:20px;bottom:20px;right:20px;background:rgba(255,253,248,.93);backdrop-filter:blur(9px);padding:18px;box-shadow:0 15px 35px rgba(30,37,27,.18);display:flex;gap:15px;align-items:center;justify-content:space-between}.mapcard strong{font:1.1rem 'Italiana';display:block}.mapcard span{font-size:.72rem;opacity:.7}
+/* RSVP */
+.rsvp{text-align:center;background:#4f5d49;color:white;padding:85px 22px}.rsvp h2{font:clamp(3rem,13vw,6rem) 'Parisienne';font-weight:400;margin:0}.rsvp p{line-height:1.8;max-width:580px;margin:0 auto}.form{width:min(540px,100%);margin:32px auto 0;display:grid;gap:12px}.form input,.form select,.form textarea{width:100%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:white;padding:15px 16px;border-radius:2px;font:inherit;outline:none}.form input::placeholder,.form textarea::placeholder{color:rgba(255,255,255,.68)}.form select option{color:#222}.form .btn{background:#f2eadc;color:#4b5945}.success{display:none;margin-top:25px;font:1.55rem 'Parisienne'}.success.on{display:block;animation:fade .6s}@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+footer{text-align:center;padding:52px 20px;background:#263024;color:#f8f3e9}.footer-monogram{font:3rem 'Italiana';margin-bottom:12px}.petal{position:fixed;top:-30px;z-index:60;width:10px;height:16px;border-radius:70% 20% 70% 20%;background:rgba(237,224,203,.85);pointer-events:none;animation:fall linear forwards}@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(480deg);opacity:.25}}
+@media(max-width:680px){.section{padding:66px 18px}.parents,.event-grid{grid-template-columns:1fr}.sponsor-grid{grid-template-columns:1fr 1fr}.photo-break{background-attachment:scroll}.mapbox{height:500px}.mapcard{align-items:flex-start;flex-direction:column}.countdown b{font-size:1.35rem}.parents{gap:1px}.hero-content{padding-bottom:46px}}
+</style>
+</head>
+<body class="lock">
+<div class="intro" id="intro">
+  <div class="grain"></div>
+  <div class="envelope-scene">
+    <div class="intro-sub">Una invitación especial para ti</div>
+    <h1 class="intro-title">Valentina & Sebastián</h1>
+    <div class="envelope">
+      <div class="env-back"></div><div class="flap"></div>
+      <div class="card-peek"><div class="monogram">V·S</div><span class="eyebrow">18 · 04 · 2027</span></div>
+      <div class="env-front"></div><div class="seal">V&S</div>
+    </div>
+    <button class="open-btn" id="openInvitation">Abrir invitación</button>
+  </div>
+</div>
+<button class="music" id="musicBtn" aria-label="Música"></button>
+<audio id="song" loop preload="none"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+
+<header class="hero" id="home">
+  <div class="hero-img" id="heroImg"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Con la bendición de Dios y nuestras familias</div>
+    <h1 class="names">Valentina<span class="amp">&</span>Sebastián</h1>
+    <div class="date-hero">18 · ABRIL · 2027</div>
+    <div class="scroll">Descubre nuestra historia<span></span></div>
+  </div>
+</header>
+
+<section class="section intro-copy">
+ <div class="wrap reveal">
+   <div class="eyebrow muted">Nos casamos</div>
+   <div class="divider"><i>❦</i></div>
+   <h2>El comienzo de nuestro para siempre</h2>
+   <p style="margin-top:24px">Hay momentos que se vuelven eternos porque se comparten con las personas correctas. Nos hará muy felices que formes parte del día en que elegimos caminar juntos para siempre.</p>
+   <div class="quote">“Donde tú estés, será mi hogar.”</div>
+   <div class="parents">
+      <div class="parent"><span class="eyebrow muted">Padres de la novia</span><strong>Adriana López & Fernando Ruiz</strong></div>
+      <div class="parent"><span class="eyebrow muted">Padres del novio</span><strong>Patricia Mendoza & Ricardo Torres</strong></div>
+   </div>
+ </div>
+</section>
+
+<section class="section save">
+ <div class="wrap reveal">
+  <span class="eyebrow muted">Reserva la fecha</span><h2>Save the date</h2>
+  <div class="date-card">
+    <div class="eyebrow">Domingo</div><div class="big-date">18</div><div class="month">Abril · 2027</div>
+    <div class="countdown"><div><b id="days">000</b><span>Días</span></div><div><b id="hours">00</b><span>Horas</span></div><div><b id="mins">00</b><span>Min</span></div><div><b id="secs">00</b><span>Seg</span></div></div>
+    <div style="margin-top:24px"><button class="btn ghost" id="calendarBtn">＋ Agregar al calendario</button></div>
+  </div>
+ </div>
+</section>
+
+<section class="section events">
+ <div class="wrap">
+   <div class="section-title reveal"><span class="eyebrow muted">Los detalles</span><div class="divider"><i>✦</i></div><h2>Un día, dos momentos</h2></div>
+   <div class="event-grid">
+     <article class="event-card reveal"><div class="event-icon">♰</div><span class="eyebrow muted">Ceremonia religiosa</span><h3>Catedral Basílica de Zacatecas</h3><div class="time">5:00 PM</div><p>Av. Hidalgo 617, Centro Histórico,<br>Zacatecas, Zac.</p><a class="btn ghost" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Catedral+Bas%C3%ADlica+de+Zacatecas">Cómo llegar ↗</a></article>
+     <article class="event-card reveal"><div class="event-icon">♧</div><span class="eyebrow muted">Recepción</span><h3>Quinta Real Zacatecas</h3><div class="time">7:00 PM</div><p>Av. Ignacio Rayón 434, Centro,<br>Zacatecas, Zac.</p><a class="btn ghost" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Quinta+Real+Zacatecas">Cómo llegar ↗</a></article>
+   </div>
+ </div>
+</section>
+
+<section class="photo-break"><div class="photo-quote reveal">Celebremos el amor, la vida y todo lo que viene.</div></section>
+
+<section class="section sponsors">
+ <div class="wrap">
+  <div class="section-title reveal"><span class="eyebrow muted">Con mucho cariño</span><div class="divider"><i>♡</i></div><h2>Nuestros padrinos</h2></div>
+  <div class="sponsor-grid">
+   <div class="sponsor reveal"><div class="ico">∞</div><small>Lazo</small><strong>Daniela & Arturo</strong></div>
+   <div class="sponsor reveal"><div class="ico">◉</div><small>Arras</small><strong>Fernanda & Miguel</strong></div>
+   <div class="sponsor reveal"><div class="ico">◌</div><small>Anillos</small><strong>Alejandra & Roberto</strong></div>
+   <div class="sponsor reveal"><div class="ico">✧</div><small>Velación</small><strong>Mariela & José Luis</strong></div>
+   <div class="sponsor reveal"><div class="ico">✝</div><small>Biblia y rosario</small><strong>Sofía & Eduardo</strong></div>
+   <div class="sponsor reveal"><div class="ico">♡</div><small>Honor</small><strong>Camila & Andrés</strong></div>
+  </div>
+ </div>
+</section>
+
+<section class="section timeline">
+ <div class="wrap">
+  <div class="section-title reveal"><span class="eyebrow muted">Programa</span><div class="divider"><i>✦</i></div><h2>Itinerario</h2></div>
+  <div class="line">
+    <div class="stop reveal"><time>5:00 PM</time><strong>Ceremonia</strong></div>
+    <div class="stop reveal"><time>6:15 PM</time><strong>Sesión de fotos</strong></div>
+    <div class="stop reveal"><time>7:00 PM</time><strong>Recepción</strong></div>
+    <div class="stop reveal"><time>8:15 PM</time><strong>Cena</strong></div>
+    <div class="stop reveal"><time>9:30 PM</time><strong>Vals & brindis</strong></div>
+    <div class="stop reveal"><time>10:00 PM</time><strong>Fiesta</strong></div>
+  </div>
+ </div>
+</section>
+
+<section class="section dress">
+ <div class="wrap reveal"><span class="eyebrow muted">Código de vestimenta</span><div class="divider"><i>❦</i></div><h2 class="serif" style="font-size:2.7rem;font-weight:400;margin:0">Formal elegante</h2><div class="formal">Viste para celebrar</div><div class="dress-swatches"><span class="swatch" style="background:#45533f"></span><span class="swatch" style="background:#7d806f"></span><span class="swatch" style="background:#b9aa8e"></span><span class="swatch" style="background:#d8cfc0"></span><span class="swatch" style="background:#9b7668"></span></div><p>Sugerimos tonos tierra, verde olivo, beige y neutros. Por favor, reserva el blanco para la novia.</p></div>
+</section>
+
+<section class="section location">
+ <div class="wrap"><div class="section-title reveal"><span class="eyebrow muted">Ubicación</span><div class="divider"><i>⌖</i></div><h2>Nos vemos en Zacatecas</h2></div></div>
+ <div class="mapbox reveal"><iframe loading="lazy" allowfullscreen src="https://www.google.com/maps?q=Quinta%20Real%20Zacatecas&output=embed"></iframe><div class="mapcard"><div><strong>Quinta Real Zacatecas</strong><span>Recepción · 7:00 PM</span></div><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Quinta+Real+Zacatecas">Abrir en Google Maps ↗</a></div></div>
+</section>
+
+<section class="rsvp" id="rsvp">
+ <div class="wrap reveal"><span class="eyebrow">Queremos celebrarlo contigo</span><h2>Confirma tu asistencia</h2><p>Ayúdanos a preparar cada detalle. Esta demostración guarda tu respuesta únicamente en este dispositivo.</p>
+  <form class="form" id="rsvpForm"><input required id="guest" placeholder="Nombre completo"><select id="attendance" required><option value="">¿Podrás acompañarnos?</option><option value="Sí asistiré">Sí, con mucho gusto</option><option value="No podré asistir">No podré asistir</option></select><select id="guests"><option>1 persona</option><option>2 personas</option><option>3 personas</option><option>4 personas</option></select><textarea id="message" rows="3" placeholder="Déjanos un mensaje (opcional)"></textarea><button class="btn" type="submit">Confirmar asistencia ♡</button></form><div class="success" id="success">Gracias. Tu respuesta quedó registrada ♡</div>
+ </div>
+</section>
+
+<footer><div class="footer-monogram">V & S</div><div class="eyebrow">Dos almas · Un mismo destino</div><p style="font:1.7rem 'Parisienne';margin:18px 0 0">18 de abril de 2027</p></footer>
+
+<script>
+const intro=document.getElementById('intro'),openBtn=document.getElementById('openInvitation'),song=document.getElementById('song'),musicBtn=document.getElementById('musicBtn');
+let playing=false;
+function playMusic(){song.volume=.35;song.play().then(()=>{playing=true;musicBtn.classList.add('playing')}).catch(()=>{})}
+openBtn.addEventListener('click',()=>{intro.classList.add('animating');playMusic();setTimeout(()=>{intro.classList.add('opened');document.body.classList.remove('lock')},1350);for(let i=0;i<12;i++)setTimeout(makePetal,i*100)});
+musicBtn.addEventListener('click',()=>{if(playing){song.pause();playing=false;musicBtn.classList.remove('playing')}else playMusic()});
+function makePetal(){const p=document.createElement('i');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.setProperty('--drift',(Math.random()*160-80)+'px');p.style.animationDuration=(5+Math.random()*5)+'s';p.style.opacity=.35+Math.random()*.5;document.body.appendChild(p);setTimeout(()=>p.remove(),10000)}
+setInterval(()=>{if(!document.body.classList.contains('lock')&&Math.random()>.45)makePetal()},1800);
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.13});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{const y=window.scrollY;document.getElementById('heroImg').style.transform=`scale(1.05) translateY(${Math.min(y*.12,70)}px)`},{passive:true});
+const target=new Date('2027-04-18T17:00:00-06:00').getTime();function tick(){const d=Math.max(0,target-Date.now()),day=Math.floor(d/86400000),h=Math.floor(d%86400000/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);days.textContent=String(day).padStart(3,'0');hours.textContent=String(h).padStart(2,'0');mins.textContent=String(m).padStart(2,'0');secs.textContent=String(s).padStart(2,'0')}tick();setInterval(tick,1000);
+document.getElementById('calendarBtn').addEventListener('click',()=>{const ics=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//V&S//Boda//ES\nBEGIN:VEVENT\nUID:vs-18042027@example.com\nDTSTAMP:20260908T000000Z\nDTSTART:20270418T230000Z\nDTEND:20270419T060000Z\nSUMMARY:Boda de Valentina y Sebastián\nLOCATION:Zacatecas, México\nDESCRIPTION:Nos casamos. Ceremonia 5:00 PM y recepción 7:00 PM.\nEND:VEVENT\nEND:VCALENDAR`;const b=new Blob([ics],{type:'text/calendar'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Boda-Valentina-Sebastian.ics';a.click();URL.revokeObjectURL(a.href)});
+document.getElementById('rsvpForm').addEventListener('submit',e=>{e.preventDefault();localStorage.setItem('rsvp-demo',JSON.stringify({name:guest.value,attendance:attendance.value,guests:guests.value,message:message.value,date:new Date().toISOString()}));e.target.style.display='none';success.classList.add('on')});
+</script>
+</body>
+</html>
