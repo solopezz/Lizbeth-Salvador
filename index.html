@@ -3,186 +3,500 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#45513a" />
-  <meta name="description" content="Invitación de boda de Lizbeth Esparza Carrillo y Salvador Ortiz Lopez · 24 de abril de 2027 · Zacatecas" />
+  <meta name="theme-color" content="#4f5f3f" />
+  <meta name="description" content="Invitación de boda de Lizbeth y Salvador · 24 de abril de 2027 · Zacatecas" />
+  <meta property="og:title" content="Lizbeth & Salvador · Nuestra boda" />
+  <meta property="og:description" content="24 de abril de 2027 · Zacatecas" />
+  <meta property="og:image" content="https://solopezz.github.io/testboda/preview/photos/balcon.webp" />
   <title>Lizbeth & Salvador · 24·04·2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="opening-v2.css" />
-  <link rel="stylesheet" href="typography-v2.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --ivory:#fdfbf7;
+  --paper:#f8f4eb;
+  --cream:#f3efe5;
+  --olive:#566445;
+  --olive-deep:#344128;
+  --olive-soft:#8c9877;
+  --blush:#e8bbb5;
+  --ink:#30342d;
+  --muted:#6c7166;
+  --line:rgba(86,100,69,.16);
+  --white:#fff;
+  --shadow:0 22px 64px rgba(39,47,31,.10);
+  --shadow-soft:0 12px 34px rgba(39,47,31,.075);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Montserrat',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--ivory);color:var(--ink);font:400 14px/1.8 var(--sans);overflow-x:hidden}
+body.locked{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4,p,figure,blockquote{margin:0}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.04}
+.micro{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--olive)}
+.micro--light{color:rgba(255,255,255,.76)}
+.signature{font-family:var(--serif);font-size:29px;font-style:italic;color:var(--olive);margin-top:24px}
+.section{padding:104px max(24px,6vw);position:relative}
+.section--paper{background:var(--paper)}
+.section--cream{background:var(--cream)}
+.section-heading{max-width:720px;margin:0 auto 48px;text-align:center}
+.section-heading h3{font-size:clamp(45px,6.2vw,72px);color:var(--olive-deep);margin:8px 0 16px}
+.section-heading>p:last-child{color:var(--muted);max-width:640px;margin:auto}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 24px;border-radius:999px;border:1px solid transparent;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;transition:.25s ease}
+.button--primary{background:var(--olive);color:white;box-shadow:0 12px 28px rgba(36,49,28,.18)}
+.button--primary:hover{background:var(--olive-deep);transform:translateY(-2px)}
+.button--glass{color:white;border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.10);backdrop-filter:blur(12px)}
+.button--glass:hover{background:rgba(255,255,255,.18)}
+.button--line{color:var(--olive-deep);border-color:var(--line);background:transparent}
+.button--line:hover{background:rgba(86,100,69,.07)}
+.button--line-light{color:white;border-color:rgba(255,255,255,.30)}
+.button--line-light:hover{background:rgba(255,255,255,.10)}
+
+/* Apertura personalizada */
+.cover{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:linear-gradient(145deg,#fbf6ec,#fdfbf7 50%,#f6f0e5);padding:22px;overflow:hidden;transition:opacity .65s ease,visibility .65s ease}
+.cover.is-opening .cover__card{transform:translateY(-8px) scale(.985);opacity:.25}
+.cover.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.cover__floral{position:absolute;width:min(560px,70vw);opacity:.26;pointer-events:none}
+.cover__floral--top{top:-160px;left:-150px}
+.cover__floral--bottom{bottom:-170px;right:-150px;transform:rotate(180deg)}
+.cover__card{position:relative;z-index:2;width:min(510px,94vw);padding:42px 36px 38px;text-align:center;background:rgba(255,255,255,.80);border:1px solid rgba(86,100,69,.16);border-radius:34px;box-shadow:var(--shadow);backdrop-filter:blur(16px);transition:.6s ease}
+.cover__logo{width:154px;margin:0 auto 16px;border-radius:50%}
+.cover h1{font-size:clamp(44px,10vw,64px);color:var(--olive-deep);margin:10px 0 4px}
+.cover h1 em{font-weight:400;color:#b67e78}
+.cover__date{font-size:11px;letter-spacing:.26em;color:var(--olive);margin:11px 0 18px}
+.cover__guest{font-family:var(--serif);font-size:23px;color:#545c49;margin:0 0 22px}
+.cover small{display:block;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:18px}
+
+/* Navegación */
+.site-nav{position:sticky;top:0;z-index:40;height:74px;padding:0 max(20px,4vw);display:flex;align-items:center;justify-content:space-between;gap:20px;background:rgba(253,251,247,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(86,100,69,.10)}
+.site-nav__brand{display:flex;align-items:center;gap:10px;color:var(--olive-deep);font:500 28px/1 var(--serif)}
+.site-nav__brand img{width:42px;height:42px;border-radius:50%;box-shadow:var(--shadow-soft)}
+.site-nav__brand em{font-style:italic;color:#b67e78}
+.site-nav nav{display:flex;align-items:center;gap:24px}
+.site-nav nav a{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#58614e}
+.site-nav__rsvp{padding:10px 16px;border:1px solid var(--line);border-radius:999px}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 74px);display:flex;align-items:flex-end;overflow:hidden;background:#12150f}
+.hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:saturate(.94) contrast(1.02)}
+.hero__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,7,.20) 0%,rgba(8,10,7,.22) 30%,rgba(8,10,7,.74) 100%)}
+.hero__copy{position:relative;z-index:2;width:min(1180px,100%);padding:84px max(24px,6vw) 72px;color:white}
+.hero h2{font-size:clamp(66px,11vw,130px);letter-spacing:-.035em;line-height:.82;color:white;max-width:900px;margin:14px 0 18px;text-shadow:0 10px 34px rgba(0,0,0,.16)}
+.hero h2 span{font-style:italic;color:#f3d2cc;font-weight:400}
+.hero__date{font-size:11px;letter-spacing:.25em;text-transform:uppercase}
+.hero__intro{max-width:580px;color:rgba(255,255,255,.82);margin:16px 0 28px;font-size:14px}
+.hero__signature{position:absolute;right:max(20px,4vw);bottom:36px;z-index:2;color:rgba(255,255,255,.28);font:italic 42px/1 var(--serif);letter-spacing:.05em}
+
+/* Bienvenida */
+.intro__grid{width:min(1120px,100%);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.intro__photo-wrap{position:relative;padding:14px;background:white;border-radius:30px;box-shadow:var(--shadow)}
+.intro__photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 39%;border-radius:21px}
+.intro__caption{position:absolute;left:30px;bottom:26px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.88);color:var(--olive);font-size:9px;letter-spacing:.18em;backdrop-filter:blur(10px)}
+.intro__logo{width:164px;margin-bottom:18px}
+.intro__copy h3{font-size:clamp(47px,5.8vw,68px);color:var(--olive-deep);margin:10px 0 20px}
+.intro__copy>p:not(.micro):not(.signature){color:var(--muted);margin-top:12px}
+.floral-divider{width:min(680px,96vw);margin:50px auto 0;opacity:.94}
+
+/* Countdown */
+.countdown-section{padding:74px max(24px,6vw);background:linear-gradient(135deg,#4c5b3c,#647153);color:white;text-align:center;position:relative;overflow:hidden}
+.countdown-section::before{content:"";position:absolute;inset:-200px auto auto -170px;width:500px;height:500px;background:url('https://solopezz.github.io/testboda/preview/assets/corner-premium.svg') center/contain no-repeat;opacity:.07;transform:rotate(12deg)}
+.countdown-section__copy{position:relative;z-index:1}
+.countdown-section h3{font-size:clamp(38px,5vw,56px);color:white;margin:7px 0 26px}
+.countdown{position:relative;z-index:1;width:min(760px,100%);margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.countdown>div{padding:22px 8px;border:1px solid rgba(255,255,255,.18);border-radius:22px;background:rgba(255,255,255,.06)}
+.countdown strong{display:block;font:500 clamp(36px,6vw,56px)/1 var(--serif)}
+.countdown span{display:block;margin-top:7px;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+
+/* Lugares */
+.event-grid{width:min(1120px,100%);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.event-card{overflow:hidden;border-radius:32px;background:white;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+.event-card--olive{background:var(--olive);color:white}
+.event-card__image{height:300px;overflow:hidden}
+.event-card__image img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.event-card:hover .event-card__image img{transform:scale(1.035)}
+.event-card__body{padding:34px 32px 36px}
+.event-card h4{font-size:clamp(35px,4.3vw,48px);color:var(--olive-deep);margin:8px 0 10px}
+.event-card--olive h4{color:white}
+.event-card__time{font:italic 29px/1 var(--serif);color:var(--olive);margin:12px 0 14px}
+.event-card--olive .event-card__time{color:#f0d1cb}
+.event-card__address{color:var(--muted);margin-bottom:20px;font-size:13px}
+.event-card--olive .event-card__address{color:rgba(255,255,255,.76)}
+.dress-card{width:min(1120px,100%);margin:24px auto 0;padding:28px 30px;border-radius:28px;background:rgba(255,255,255,.78);border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:30px;box-shadow:var(--shadow-soft)}
+.dress-card h4{font-size:35px;color:var(--olive-deep);margin:5px 0 8px}
+.dress-card p{color:var(--muted);max-width:760px}
+.palette{display:flex;gap:9px;flex:0 0 auto}
+.palette i{width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,0,0,.06)}
+.palette i:nth-child(1){background:#f8f3e8}.palette i:nth-child(2){background:#9ca78a}.palette i:nth-child(3){background:#e5b9b2}.palette i:nth-child(4){background:#596746}
+
+/* Foto cita */
+.quote-photo{position:relative;min-height:68vh;display:grid;place-items:center;overflow:hidden}
+.quote-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.quote-photo__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,22,15,.35),rgba(18,22,15,.60))}
+.quote-photo blockquote{position:relative;z-index:1;max-width:900px;padding:28px;text-align:center;color:white;font:italic 400 clamp(39px,6vw,68px)/1.04 var(--serif);text-shadow:0 8px 28px rgba(0,0,0,.18)}
+
+/* Itinerario */
+.timeline{width:min(800px,100%);margin:auto;position:relative}
+.timeline::before{content:"";position:absolute;left:34px;top:14px;bottom:18px;width:1px;background:rgba(86,100,69,.20)}
+.timeline__item{position:relative;display:grid;grid-template-columns:90px 1fr;gap:24px;padding:0 0 26px}
+.timeline__item::before{content:"";position:absolute;left:28px;top:12px;width:13px;height:13px;border-radius:50%;background:var(--blush);box-shadow:0 0 0 7px var(--paper)}
+.timeline__item time{font:500 27px/1.1 var(--serif);color:var(--olive-deep)}
+.timeline__item>div{padding:22px 24px;background:white;border:1px solid var(--line);border-radius:23px;box-shadow:var(--shadow-soft)}
+.timeline__item h4{font-size:28px;color:var(--olive-deep);margin-bottom:3px}
+.timeline__item p{color:var(--muted)}
+
+/* Padrinos */
+.padrinos-grid{width:min(1120px,100%);margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.padrinos-grid article{min-height:190px;padding:28px 22px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:27px;box-shadow:var(--shadow-soft)}
+.padrinos-grid span{font-size:9px;letter-spacing:.2em;color:#a57b76}
+.padrinos-grid h4{font-size:27px;color:var(--olive-deep);margin:9px 0 8px}
+.padrinos-grid p{color:var(--muted);font-size:12px}
+
+/* Galería */
+.gallery__grid{width:min(1120px,100%);margin:auto;display:grid;grid-template-columns:1.15fr .85fr .85fr;grid-auto-rows:250px;gap:14px}
+.gallery figure{position:relative;overflow:hidden;border-radius:28px;box-shadow:var(--shadow-soft)}
+.gallery figure img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease,filter .55s ease}
+.gallery figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(17,20,14,.55));pointer-events:none}
+.gallery figure:hover img{transform:scale(1.04);filter:saturate(1.04)}
+.gallery__feature{grid-row:span 2}
+.gallery__wide{grid-column:span 2}
+.gallery figcaption{position:absolute;left:18px;bottom:15px;z-index:1;color:white;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+
+/* Regalos */
+.gifts{background:linear-gradient(180deg,#f4efe5,#faf7f0)}
+.gifts__grid{width:min(900px,100%);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.gift-card{padding:34px 28px;text-align:center;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow-soft)}
+.gift-card>img{height:90px;width:auto;max-width:180px;object-fit:contain;margin:0 auto 12px}
+.gift-card:nth-child(2)>img{width:190px;height:78px;object-fit:cover;object-position:center 46%}
+.gift-card h4{font-size:34px;color:var(--olive-deep);margin:7px 0 10px}
+.gift-card p{color:var(--muted)}
+.gift-card__status{display:inline-block;margin-top:18px;padding:8px 12px;border-radius:999px;background:#f2eee5;color:#777d70;font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+
+/* RSVP conectado */
+.rsvp{position:relative;padding:100px max(24px,6vw);overflow:hidden;background:linear-gradient(135deg,#344128,#536143);color:white}
+.rsvp__floral{position:absolute;right:-170px;top:-180px;width:600px;opacity:.08;pointer-events:none}
+.rsvp__grid{position:relative;z-index:1;width:min(1040px,100%);margin:auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:54px;align-items:start}
+.rsvp__copy h3{font-size:clamp(49px,6vw,72px);color:white;margin:10px 0 18px}
+.rsvp__copy>p:not(.micro){color:rgba(255,255,255,.80);font-size:15px}
+.rsvp__note{margin-top:24px;padding:18px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.68);font-size:12px}
+.rsvp-form{padding:30px;border-radius:30px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.075);backdrop-filter:blur(10px)}
+.field{margin-bottom:20px}
+.field>label{display:block;margin-bottom:9px;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.field>label span{font-weight:400;text-transform:none;letter-spacing:0}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice span{display:flex;align-items:center;justify-content:center;min-height:50px;padding:10px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.22);color:white;font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;transition:.2s ease}
+.choice input:checked+span,.choice span:hover{background:white;color:var(--olive-deep);border-color:white}
+#attendees,#message{width:100%;padding:13px 14px;border-radius:15px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:white;outline:none}
+#attendees option{color:#222}
+#message{resize:vertical;min-height:96px}
+#spotsHelp{display:block;margin-top:6px;color:rgba(255,255,255,.58);font-size:10px}
+.submit-button{width:100%;min-height:52px;border:0;border-radius:999px;background:white;color:var(--olive-deep);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;transition:.2s ease}
+.submit-button:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.submit-button:disabled{opacity:.58;cursor:wait}
+.form-message{min-height:24px;margin-top:12px;color:rgba(255,255,255,.78);font-size:12px;text-align:center}
+
+/* Footer */
+.footer{position:relative;padding:70px 24px 78px;text-align:center;background:#232b1c;color:white;overflow:hidden}
+.footer::before{content:"";position:absolute;left:-120px;bottom:-180px;width:430px;height:430px;background:url('https://solopezz.github.io/testboda/preview/assets/corner-premium.svg') center/contain no-repeat;opacity:.07;transform:rotate(180deg)}
+.footer img{width:120px;margin:0 auto 16px;border-radius:50%;filter:brightness(1.08)}
+.footer h3{font-size:38px;color:white;margin-bottom:8px}
+.footer p{color:rgba(255,255,255,.66);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+
+/* Entrada al hacer scroll */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:980px){
+  .site-nav nav a:not(.site-nav__rsvp){display:none}
+  .intro__grid,.rsvp__grid{grid-template-columns:1fr;gap:42px}
+  .intro__copy{text-align:center}
+  .intro__logo{margin:0 auto 18px}
+  .event-grid{grid-template-columns:1fr}
+  .padrinos-grid{grid-template-columns:1fr 1fr}
+  .gallery__grid{grid-template-columns:1fr 1fr;grid-auto-rows:230px}
+  .gallery__feature{grid-row:span 2}
+  .gallery__wide{grid-column:span 1}
+}
+@media(max-width:680px){
+  html{scroll-padding-top:66px}
+  .site-nav{height:66px}
+  .site-nav__brand img{width:38px;height:38px}
+  .site-nav__brand{font-size:25px}
+  .hero{min-height:calc(92svh - 66px)}
+  .hero__photo{object-position:59% center}
+  .hero__copy{padding:64px 22px 48px}
+  .hero h2{font-size:61px}
+  .hero__signature{display:none}
+  .section{padding:72px 20px}
+  .section-heading{margin-bottom:38px}
+  .section-heading h3{font-size:47px}
+  .intro__photo-wrap{padding:9px;border-radius:24px}
+  .intro__photo{border-radius:17px}
+  .floral-divider{margin-top:36px}
+  .countdown-section{padding:58px 16px}
+  .countdown{grid-template-columns:repeat(2,1fr)}
+  .event-card__image{height:230px}
+  .event-card__body{padding:28px 24px 30px}
+  .dress-card{display:block;padding:24px}
+  .palette{margin-top:18px}
+  .quote-photo{min-height:56vh}
+  .timeline::before{left:20px}
+  .timeline__item{grid-template-columns:64px 1fr;gap:10px}
+  .timeline__item::before{left:14px}
+  .timeline__item>div{padding:18px}
+  .padrinos-grid,.gifts__grid,.choice-grid,.gallery__grid{grid-template-columns:1fr}
+  .gallery__grid{grid-auto-rows:310px}
+  .gallery__feature,.gallery__wide{grid-row:auto;grid-column:auto}
+  .rsvp{padding:76px 20px}
+  .rsvp-form{padding:24px 18px}
+  .cover__card{padding:32px 22px 30px}
+  .cover__logo{width:132px}
+  .cover__floral{width:480px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+
+  </style>
 </head>
 <body class="locked">
-  <div class="page-bg" aria-hidden="true"></div>
-
   <section id="cover" class="cover" aria-label="Abrir invitación">
-    <div class="cover__botanical cover__botanical--tl" aria-hidden="true">❧</div>
-    <div class="cover__botanical cover__botanical--br" aria-hidden="true">❧</div>
+    <img class="cover__floral cover__floral--top" src="https://solopezz.github.io/testboda/preview/assets/corner-premium.svg" alt="" aria-hidden="true" />
+    <img class="cover__floral cover__floral--bottom" src="https://solopezz.github.io/testboda/preview/assets/corner-premium.svg" alt="" aria-hidden="true" />
     <div class="cover__card">
+      <img class="cover__logo" src="https://solopezz.github.io/testboda/preview/photos/monograma.webp" alt="Monograma de Lizbeth y Salvador" />
       <p class="micro">TENEMOS EL HONOR DE INVITARTE</p>
-      <div class="cover__crest">
-        <span>L</span><i>&</i><span>S</span>
-      </div>
       <h1>Lizbeth <em>&</em> Salvador</h1>
       <p class="cover__date">24 · 04 · 2027</p>
-      <div class="cover__rule"><span></span></div>
       <p id="gateGuest" class="cover__guest">Una invitación especial para ti</p>
-      <button id="openInviteButton" class="open-button" type="button"><span>Abrir invitación</span><b>↗</b></button>
-      <small>Con cariño, Lizbeth & Salvador</small>
+      <button id="openInviteButton" class="button button--primary" type="button">Abrir invitación <span>↗</span></button>
+      <small>Zacatecas · Zacatecas</small>
     </div>
   </section>
 
-  <button id="musicPill" class="music-pill" type="button" aria-label="Nuestra canción">
-    <span class="music-pill__icon">♪</span>
-    <span><b>Ordinary</b><small>Alex Warren</small></span>
-  </button>
+  <header class="site-nav">
+    <a class="site-nav__brand" href="#inicio" aria-label="Ir al inicio">
+      <img src="https://solopezz.github.io/testboda/preview/photos/monograma.webp" alt="" aria-hidden="true" />
+      <span>L<em>&</em>S</span>
+    </a>
+    <nav aria-label="Navegación de la invitación">
+      <a href="#detalles">Celebración</a>
+      <a href="#itinerario">Itinerario</a>
+      <a href="#padrinos">Padrinos</a>
+      <a href="#regalos">Regalos</a>
+      <a class="site-nav__rsvp" href="#rsvp">Confirmar</a>
+    </nav>
+  </header>
 
-  <main class="invitation-shell" id="invitation">
+  <main id="inicio" class="invitation-shell">
     <section class="hero reveal">
-      <img class="hero__photo" src="assets/foto-luces.webp" alt="Lizbeth y Salvador" />
-      <div class="hero__overlay"></div>
-      <div class="hero__topline">NUESTRA BODA · ZACATECAS</div>
+      <img class="hero__photo" src="https://solopezz.github.io/testboda/preview/photos/balcon.webp" alt="Lizbeth y Salvador abrazados en un balcón de noche" fetchpriority="high" />
+      <div class="hero__veil"></div>
       <div class="hero__copy">
-        <p class="micro micro--light">NOS CASAMOS</p>
+        <p class="micro micro--light">NUESTRA BODA · ZACATECAS</p>
         <h2>Lizbeth <span>&</span> Salvador</h2>
         <p class="hero__date">SÁBADO · 24 · ABRIL · 2027</p>
+        <p class="hero__intro">Con enorme alegría queremos compartir contigo el comienzo de nuestra nueva etapa.</p>
+        <a class="button button--glass" href="#bienvenida">Descubrir la invitación <span>↓</span></a>
       </div>
-      <a class="hero__scroll" href="#welcome" aria-label="Continuar">⌄</a>
+      <div class="hero__signature">L & S</div>
     </section>
 
-    <section id="welcome" class="section section--cream intro reveal">
-      <div class="botanical-line" aria-hidden="true">
-        <svg viewBox="0 0 220 70"><path d="M25 56C64 7 124 9 187 45M63 35c-9-16-25-16-35-7 17 2 27 9 35 7Zm37-13c-1-15-15-25-29-22 12 9 19 17 29 22Zm41 8c8-16 23-20 37-13-14 5-25 11-37 13Zm30 16c11-10 26-10 37-1-14 0-24 4-37 1Z"/></svg>
-      </div>
-      <p class="micro">CON MUCHA ILUSIÓN</p>
-      <h3>Un día, un sí, una vida entera.</h3>
-      <p class="lead">Hay momentos que merecen ser compartidos con las personas que queremos. Queremos celebrar nuestro matrimonio rodeados de quienes han sido parte de nuestra historia.</p>
-      <p class="signature">Lizbeth & Salvador</p>
-    </section>
-
-    <section class="story reveal">
-      <div class="story__paper">
-        <img src="assets/foto-portada.webp" alt="Lizbeth y Salvador juntos" loading="lazy" />
-        <div class="story__caption">
-          <span>24·04·2027</span>
-          <p>“Nuestro lugar favorito siempre será donde estemos juntos.”</p>
+    <section id="bienvenida" class="section section--paper intro reveal">
+      <div class="intro__grid">
+        <div class="intro__photo-wrap">
+          <img class="intro__photo" src="https://solopezz.github.io/testboda/preview/photos/hero.webp" alt="Lizbeth y Salvador sosteniendo un letrero Save the Date" loading="lazy" />
+          <span class="intro__caption">24 · 04 · 2027</span>
+        </div>
+        <div class="intro__copy">
+          <img class="intro__logo" src="https://solopezz.github.io/testboda/preview/photos/monograma.webp" alt="Monograma L y S" loading="lazy" />
+          <p class="micro">CON MUCHA ILUSIÓN</p>
+          <h3>Un día, un sí, una vida entera.</h3>
+          <p>Hay momentos que merecen ser compartidos con las personas que queremos. Después de tantos recuerdos juntos, llegó el momento de celebrar nuestra historia rodeados de familia y amigos.</p>
+          <p>Queremos que esta invitación se sienta como nosotros: cálida, elegante, íntima y llena de pequeños detalles.</p>
+          <p class="signature">Lizbeth & Salvador</p>
         </div>
       </div>
-      <span class="story__seal">L&S</span>
+      <img class="floral-divider" src="https://solopezz.github.io/testboda/preview/assets/olive-divider.svg" alt="Decoración floral con las iniciales L y S" loading="lazy" />
     </section>
 
-    <section class="countdown-section reveal">
-      <div class="countdown-section__leaf" aria-hidden="true">❧</div>
-      <p class="micro micro--light">RESERVA LA FECHA</p>
-      <div class="date-lockup">
-        <span>ABRIL</span>
-        <strong>24</strong>
-        <span>2027</span>
+    <section class="countdown-section reveal" aria-label="Cuenta regresiva">
+      <div class="countdown-section__copy">
+        <p class="micro micro--light">RESERVA LA FECHA</p>
+        <h3>Cada día, más cerca.</h3>
       </div>
-      <p class="countdown-section__copy">Faltan</p>
       <div class="countdown" aria-live="polite">
         <div><strong id="days">--</strong><span>DÍAS</span></div>
         <div><strong id="hours">--</strong><span>HORAS</span></div>
-        <div><strong id="minutes">--</strong><span>MIN</span></div>
-        <div><strong id="seconds">--</strong><span>SEG</span></div>
+        <div><strong id="minutes">--</strong><span>MINUTOS</span></div>
+        <div><strong id="seconds">--</strong><span>SEGUNDOS</span></div>
       </div>
     </section>
 
-    <section class="section section--cream event-intro reveal">
-      <p class="micro">NUESTRO GRAN DÍA</p>
-      <h3>Te esperamos en el corazón de Zacatecas</h3>
-      <p class="lead">Dos momentos, una misma celebración. Guarda las ubicaciones y acompáñanos desde la ceremonia hasta la última canción.</p>
-    </section>
-
-    <section class="event-card event-card--light reveal">
-      <div class="event-card__number">01</div>
-      <svg class="event-icon" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 14 31 43v61h58V43L60 14Zm0 0v90M42 57h36M47 75h26M52 104V85h16v19M24 104h72M60 5v18M53 12h14"/></svg>
-      <p class="micro">CEREMONIA RELIGIOSA</p>
-      <h3>Iglesia de Santo Domingo</h3>
-      <p class="event-card__time">1:00 PM</p>
-      <p class="event-card__address">Genaro Codina 722<br>Zacatecas Centro, 98000 Zacatecas, Zac.</p>
-      <a id="ceremonyMap" class="outline-button" target="_blank" rel="noopener">Ver ubicación <span>↗</span></a>
-    </section>
-
-    <section class="event-photo-band reveal" aria-hidden="true">
-      <img src="assets/foto-final.webp" alt="" loading="lazy" />
-      <div></div>
-      <p>Nos vemos para celebrar</p>
-    </section>
-
-    <section class="event-card event-card--olive reveal">
-      <div class="event-card__number">02</div>
-      <svg class="event-icon event-icon--light" viewBox="0 0 120 120" aria-hidden="true"><path d="M23 103h74M30 103V55h60v48M36 55c0-13 11-24 24-24s24 11 24 24M47 31V18h26v13M39 72h42M45 103V82h30v21M24 55h72"/></svg>
-      <p class="micro micro--light">RECEPCIÓN</p>
-      <h3>Terraza Grand Casa Torres</h3>
-      <p class="event-card__time">6:00 PM</p>
-      <p class="event-card__address">Pzla. de Santo Domingo 518<br>Zacatecas Centro, 98000 Zacatecas, Zac.</p>
-      <a id="receptionMap" class="outline-button outline-button--light" target="_blank" rel="noopener">Ver ubicación <span>↗</span></a>
-    </section>
-
-    <section class="section section--cream details reveal">
-      <div class="details__item">
-        <span class="details__icon">◌</span>
-        <p class="micro">CÓDIGO DE VESTIMENTA</p>
-        <h3>Formal</h3>
-        <div class="palette" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        <p>Para ellas, agradecemos reservar el blanco para la novia y evitar tonos blanco, marfil, perla, hueso o similares.</p>
+    <section id="detalles" class="section section--cream reveal">
+      <div class="section-heading">
+        <p class="micro">NUESTRO GRAN DÍA</p>
+        <h3>La celebración</h3>
+        <p>Dos momentos especiales, una misma historia. Guarda las ubicaciones y acompáñanos desde la ceremonia hasta la última canción.</p>
       </div>
-      <div class="details__divider"></div>
-      <div class="details__item">
-        <span class="details__icon">♡</span>
+
+      <div class="event-grid">
+        <article class="event-card">
+          <div class="event-card__image"><img src="https://solopezz.github.io/testboda/preview/photos/carruaje.webp" alt="Lizbeth y Salvador frente a un carruaje clásico" loading="lazy" /></div>
+          <div class="event-card__body">
+            <p class="micro">01 · CEREMONIA RELIGIOSA</p>
+            <h4>Iglesia de Santo Domingo</h4>
+            <p class="event-card__time">1:00 PM</p>
+            <p class="event-card__address">Genaro Codina 722<br>Zacatecas Centro, 98000 Zacatecas, Zac.</p>
+            <a id="ceremonyMap" class="button button--line" target="_blank" rel="noopener">Ver ubicación <span>↗</span></a>
+          </div>
+        </article>
+
+        <article class="event-card event-card--olive">
+          <div class="event-card__image"><img src="https://solopezz.github.io/testboda/preview/photos/escalinata.webp" alt="Lizbeth y Salvador en una escalinata iluminada" loading="lazy" /></div>
+          <div class="event-card__body">
+            <p class="micro micro--light">02 · RECEPCIÓN</p>
+            <h4>Terraza Grand Casa Torres</h4>
+            <p class="event-card__time">6:00 PM</p>
+            <p class="event-card__address">Pzla. de Santo Domingo 518<br>Zacatecas Centro, 98000 Zacatecas, Zac.</p>
+            <a id="receptionMap" class="button button--line button--line-light" target="_blank" rel="noopener">Ver ubicación <span>↗</span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="dress-card">
+        <div>
+          <p class="micro">CÓDIGO DE VESTIMENTA</p>
+          <h4>Formal elegante</h4>
+          <p>Traje y vestido de fiesta. Para ellas, agradecemos reservar el blanco, marfil, perla y tonos similares para la novia.</p>
+        </div>
+        <div class="palette" aria-label="Paleta de colores de referencia"><i></i><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <section class="quote-photo reveal">
+      <img src="https://solopezz.github.io/testboda/preview/photos/fuente.webp" alt="Lizbeth y Salvador frente a una fuente de piedra" loading="lazy" />
+      <div class="quote-photo__veil"></div>
+      <blockquote>“De todas las historias, la nuestra es mi favorita.”</blockquote>
+    </section>
+
+    <section id="itinerario" class="section section--paper reveal">
+      <div class="section-heading">
+        <p class="micro">ITINERARIO</p>
+        <h3>Momentos para recordar</h3>
+        <p>Un vistazo breve al día. Los horarios pueden ajustarse conforme terminemos de definir los últimos detalles.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline__item"><time>1:00</time><div><h4>Ceremonia religiosa</h4><p>Nos encontramos en la iglesia para comenzar este gran día.</p></div></div>
+        <div class="timeline__item"><time>2:30</time><div><h4>Fotografías y convivencia</h4><p>Un momento para abrazos, recuerdos y fotografías con nuestros invitados.</p></div></div>
+        <div class="timeline__item"><time>6:00</time><div><h4>Recepción</h4><p>Bienvenida en Grand Casa Torres y comienzo de la celebración.</p></div></div>
+        <div class="timeline__item"><time>7:30</time><div><h4>Cena y brindis</h4><p>Compartimos la mesa y levantamos las copas por esta nueva etapa.</p></div></div>
+        <div class="timeline__item"><time>9:00</time><div><h4>Baile y fiesta</h4><p>Música, baile y una noche para disfrutar juntos.</p></div></div>
+      </div>
+    </section>
+
+    <section id="padrinos" class="section section--cream reveal">
+      <div class="section-heading">
+        <p class="micro">CON CARIÑO Y GRATITUD</p>
+        <h3>Nuestros padrinos</h3>
+        <p>Personas especiales que nos acompañan de una manera muy significativa en este día.</p>
+      </div>
+      <div class="padrinos-grid">
+        <article><span>01</span><h4>Padrinos de velación</h4><p>Nombres por agregar</p></article>
+        <article><span>02</span><h4>Padrinos de anillos</h4><p>Nombres por agregar</p></article>
+        <article><span>03</span><h4>Padrinos de lazo</h4><p>Nombres por agregar</p></article>
+        <article><span>04</span><h4>Padrinos de arras</h4><p>Nombres por agregar</p></article>
+      </div>
+    </section>
+
+    <section class="gallery section section--paper reveal" aria-label="Galería de Lizbeth y Salvador">
+      <div class="section-heading">
+        <p class="micro">NOSOTROS</p>
+        <h3>Pequeños instantes</h3>
+        <p>Una selección de recuerdos de esta etapa que nos trajo hasta aquí.</p>
+      </div>
+      <div class="gallery__grid">
+        <figure class="gallery__feature"><img src="https://solopezz.github.io/testboda/preview/photos/balcon.webp" alt="Lizbeth y Salvador mirándose en un balcón" loading="lazy"><figcaption>Siempre contigo</figcaption></figure>
+        <figure><img src="https://solopezz.github.io/testboda/preview/photos/carruaje.webp" alt="Lizbeth y Salvador frente a un carruaje" loading="lazy"><figcaption>Nuestra historia</figcaption></figure>
+        <figure><img src="https://solopezz.github.io/testboda/preview/photos/escalinata.webp" alt="Lizbeth y Salvador en una escalinata" loading="lazy"><figcaption>Zacatecas</figcaption></figure>
+        <figure class="gallery__wide"><img src="https://solopezz.github.io/testboda/preview/photos/balcon.webp" alt="Lizbeth y Salvador abrazados en un balcón" loading="lazy"><figcaption>Nos elegimos</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="regalos" class="section gifts reveal">
+      <div class="section-heading">
         <p class="micro">MESA DE REGALOS</p>
         <h3>Tu presencia es nuestro mejor regalo</h3>
-        <p>Su presencia es lo más importante para nosotros. Si desean tener un detalle con nosotros, será recibido con mucho cariño.</p>
+        <p>Si deseas tener un detalle con nosotros, será recibido con muchísimo cariño.</p>
       </div>
-    </section>
-
-    <section class="gallery reveal" aria-label="Galería de Lizbeth y Salvador">
-      <div class="gallery__label"><span>NOSOTROS</span><b>03</b></div>
-      <div class="gallery__grid">
-        <figure class="gallery__wide"><img src="assets/foto-portada.webp" alt="Lizbeth y Salvador" loading="lazy"></figure>
-        <figure><img src="assets/foto-luces.webp" alt="Lizbeth y Salvador" loading="lazy"></figure>
-        <figure><img src="assets/foto-final.webp" alt="Lizbeth y Salvador" loading="lazy"></figure>
+      <div class="gifts__grid">
+        <article class="gift-card">
+          <img src="https://solopezz.github.io/testboda/preview/photos/monograma.webp" alt="" aria-hidden="true" />
+          <p class="micro">LIVERPOOL</p>
+          <h4>Mesa de regalos</h4>
+          <p>Muy pronto colocaremos aquí el enlace definitivo de nuestra mesa de regalos Liverpool.</p>
+          <span class="gift-card__status">Enlace pendiente</span>
+        </article>
+        <article class="gift-card">
+          <img src="https://solopezz.github.io/testboda/preview/assets/olive-divider.svg" alt="" aria-hidden="true" />
+          <p class="micro">REGALO LIBRE</p>
+          <h4>Un detalle para nuestra nueva etapa</h4>
+          <p>Si prefieres un regalo libre, aquí podremos agregar posteriormente los datos o la opción que elijamos.</p>
+          <span class="gift-card__status">Datos pendientes</span>
+        </article>
       </div>
     </section>
 
     <section id="rsvp" class="rsvp reveal">
-      <div class="rsvp__head">
-        <p class="micro micro--light">RSVP · ANTES DEL 31·03·2027</p>
-        <h3>¿Nos acompañas?</h3>
-        <p id="guestGreeting">Estamos cargando los datos de tu invitación…</p>
-      </div>
+      <img class="rsvp__floral" src="https://solopezz.github.io/testboda/preview/assets/corner-premium.svg" alt="" aria-hidden="true" />
+      <div class="rsvp__grid">
+        <div class="rsvp__copy">
+          <p class="micro micro--light">RSVP · ANTES DEL 31·03·2027</p>
+          <h3>¿Nos acompañas?</h3>
+          <p id="guestGreeting">Estamos cargando los datos de tu invitación…</p>
+          <div class="rsvp__note">Tu enlace personal reconoce automáticamente los lugares reservados para tu invitación y guarda la respuesta en nuestra lista.</div>
+        </div>
 
-      <form id="rsvpForm" class="rsvp-form">
-        <div class="field">
-          <label>¿Podrás acompañarnos?</label>
-          <div class="choice-grid">
-            <label class="choice"><input type="radio" name="status" value="Confirmado" required><span>Sí, asistiré</span></label>
-            <label class="choice"><input type="radio" name="status" value="No asistirá" required><span>No podré asistir</span></label>
+        <form id="rsvpForm" class="rsvp-form">
+          <div class="field">
+            <label>¿Podrás acompañarnos?</label>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="status" value="Confirmado" required><span>Sí, asistiré</span></label>
+              <label class="choice"><input type="radio" name="status" value="No asistirá" required><span>No podré asistir</span></label>
+            </div>
           </div>
-        </div>
 
-        <div class="field" id="attendanceField">
-          <label for="attendees">Número de asistentes</label>
-          <select id="attendees" name="attendees"></select>
-          <small id="spotsHelp"></small>
-        </div>
+          <div class="field" id="attendanceField">
+            <label for="attendees">Número de asistentes</label>
+            <select id="attendees" name="attendees"></select>
+            <small id="spotsHelp"></small>
+          </div>
 
-        <div class="field">
-          <label for="message">Mensaje para los novios <span>(opcional)</span></label>
-          <textarea id="message" name="message" rows="4" maxlength="300" placeholder="Déjanos unas palabras…"></textarea>
-        </div>
+          <div class="field">
+            <label for="message">Mensaje para los novios <span>(opcional)</span></label>
+            <textarea id="message" name="message" rows="4" maxlength="300" placeholder="Déjanos unas palabras…"></textarea>
+          </div>
 
-        <button class="submit-button" type="submit" id="submitButton">Confirmar asistencia <span>→</span></button>
-        <p id="formMessage" class="form-message" role="status"></p>
-      </form>
+          <button class="submit-button" type="submit" id="submitButton">Confirmar aquí <span>→</span></button>
+          <p id="formMessage" class="form-message" role="status"></p>
+        </form>
+      </div>
     </section>
 
     <footer class="footer reveal">
-      <img src="assets/logo.webp" alt="Lizbeth y Salvador · 24·04·2027" loading="lazy">
-      <p>Gracias por ser parte de nuestra historia.</p>
-      <small>ZACATECAS · 24 · 04 · 2027</small>
+      <img src="https://solopezz.github.io/testboda/preview/photos/monograma.webp" alt="Lizbeth y Salvador · 24·04·2027" loading="lazy">
+      <h3>Gracias por ser parte de nuestra historia.</h3>
+      <p>Lizbeth & Salvador · Zacatecas · 24 · 04 · 2027</p>
     </footer>
   </main>
 
