@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 620" role="img" aria-label="Esquina botánica de eucalipto y olivo">
+<defs>
+ <linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e2e7d7"/><stop offset=".52" stop-color="#8fa087"/><stop offset="1" stop-color="#415c50"/></linearGradient>
+ <linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1efdc"/><stop offset=".55" stop-color="#a9b59b"/><stop offset="1" stop-color="#647a68"/></linearGradient>
+ <filter id="w" x="-25%" y="-25%" width="150%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2"/><feGaussianBlur stdDeviation=".15"/></filter>
+ <path id="leaf" d="M0 0C18-20 52-18 69 0C50 20 20 22 0 0Z"/>
+</defs>
+<path d="M40 565C98 476 121 384 141 283C161 177 215 111 309 55" fill="none" stroke="#72816e" stroke-width="5" stroke-linecap="round" opacity=".74"/>
+<path d="M73 513C153 491 234 489 327 518M143 294C209 310 272 347 332 400M198 153C253 163 305 187 351 226" fill="none" stroke="#809079" stroke-width="3.2" stroke-linecap="round" opacity=".58"/>
+<g fill="url(#a)" filter="url(#w)">
+ <use href="#leaf" transform="translate(60 510) rotate(-68) scale(.68)"/><use href="#leaf" transform="translate(89 449) rotate(-59) scale(.76)"/><use href="#leaf" transform="translate(112 386) rotate(-50) scale(.7)"/><use href="#leaf" transform="translate(126 320) rotate(-42) scale(.79)"/><use href="#leaf" transform="translate(145 252) rotate(-32) scale(.72)"/><use href="#leaf" transform="translate(176 192) rotate(-20) scale(.81)"/><use href="#leaf" transform="translate(220 130) rotate(-10) scale(.74)"/><use href="#leaf" transform="translate(272 80) rotate(4) scale(.7)"/>
+ <use href="#leaf" transform="translate(137 482) rotate(13) scale(.58)"/><use href="#leaf" transform="translate(206 474) rotate(22) scale(.64)"/><use href="#leaf" transform="translate(266 486) rotate(34) scale(.56)"/><use href="#leaf" transform="translate(186 305) rotate(42) scale(.58)"/><use href="#leaf" transform="translate(242 331) rotate(50) scale(.62)"/><use href="#leaf" transform="translate(245 171) rotate(47) scale(.55)"/>
+</g>
+<g fill="url(#b)" opacity=".88" filter="url(#w)"><use href="#leaf" transform="translate(88 374) rotate(115) scale(.52)"/><use href="#leaf" transform="translate(132 276) rotate(130) scale(.55)"/><use href="#leaf" transform="translate(183 187) rotate(145) scale(.5)"/><use href="#leaf" transform="translate(159 505) rotate(190) scale(.48)"/><use href="#leaf" transform="translate(222 494) rotate(198) scale(.5)"/></g>
+<g fill="#f4f1e4" stroke="#c7bfa3" stroke-width="1" opacity=".96"><circle cx="133" cy="355" r="10"/><circle cx="150" cy="346" r="8"/><circle cx="165" cy="338" r="7"/><circle cx="231" cy="116" r="9"/><circle cx="247" cy="108" r="7"/><circle cx="290" cy="492" r="9"/></g>
+<g fill="#758977"><circle cx="115" cy="407" r="10"/><circle cx="126" cy="392" r="8"/><circle cx="278" cy="355" r="9"/><circle cx="297" cy="368" r="7"/><circle cx="307" cy="69" r="8"/></g>
+</svg>
